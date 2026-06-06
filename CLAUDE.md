@@ -64,6 +64,18 @@ shared/
 
 ---
 
+## After editing code
+
+Run Prettier on any file you touch before finishing:
+
+```
+cd apps/web && pnpm format   # or apps/api
+```
+
+The root `.prettierrc` covers both apps. This keeps diffs clean and avoids a separate format-only commit.
+
+---
+
 ## Key conventions
 
 - **Path alias:** both apps import shared types via `@tavuilu/shared` — never with relative `../../shared/` paths.
