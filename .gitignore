@@ -8,6 +8,9 @@ build/
 # Vite
 apps/web/.vite/
 
+# pnpm local store (created in Docker/CI environments)
+.pnpm-store/
+
 # TypeScript build cache
 *.tsbuildinfo
 
