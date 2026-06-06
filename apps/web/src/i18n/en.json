@@ -12,5 +12,6 @@
   "loadingWords": "Loading words...",
   "errorLoadingWords": "Could not load words.",
   "languageFi": "Suomi",
-  "languageEn": "English"
+  "languageEn": "English",
+  "slotLabel": "Slot"
 }

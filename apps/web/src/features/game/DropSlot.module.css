@@ -1,0 +1,28 @@
+.slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.empty {
+  background-color: var(--color-bg);
+  border: 2px dashed var(--color-border);
+}
+
+.filled {
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-primary);
+}
+
+.chipText {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  padding: var(--space-3) var(--space-5);
+}

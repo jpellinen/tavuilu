@@ -12,5 +12,6 @@
   "loadingWords": "Ladataan sanoja...",
   "errorLoadingWords": "Sanoja ei voitu ladata.",
   "languageFi": "Suomi",
-  "languageEn": "English"
+  "languageEn": "English",
+  "slotLabel": "Paikka"
 }

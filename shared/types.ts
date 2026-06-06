@@ -28,4 +28,5 @@ export interface Locale {
   errorLoadingWords: string;
   languageFi: string;
   languageEn: string;
+  slotLabel: string;
 }
