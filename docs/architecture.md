@@ -38,18 +38,18 @@ tavuilu/
     api/                    ← Fastify backend (own package.json)
       src/
         routes/             ← Fastify route handlers
-        plugins/            ← Fastify plugins (auth, static, content loader)
-        schemas/            ← Zod validation (re-exports from shared/)
+        plugins/            ← Fastify plugins (empty — scaffolded for Phase 2+)
+        schemas/            ← Zod validation schemas
+        content-loader.ts   ← Parses fi.json at startup
       content/
         fi.json             ← Finnish word list
         images/
           words/            ← Word images (served as static files)
-  shared/                   ← TypeScript types + Zod schemas (no package.json)
-    types.ts                ← Shared domain types (Word, UserProgress, …)
-    schemas.ts              ← Zod schemas for API validation and content parsing
+  shared/                   ← TypeScript types (no package.json)
+    index.ts                ← Re-exports all public types
+    types.ts                ← Shared domain types (Word, UserProgress, Locale)
   docs/                     ← All spec files (this directory)
   docker-compose.yml        ← Dev compose
-  docker-compose.prod.yml   ← Prod compose
   CLAUDE.md                 ← Agent task → doc mapping
   PLAN.md                   ← Phase plan and implementation notes
 ```
@@ -154,7 +154,7 @@ tavuilu/
 | `BETTER_AUTH_SECRET` | prod only | Secret for signing sessions |
 | `PORT` | default 3000 | Fastify listen port |
 
-A `.env.example` at the project root documents every variable with safe defaults for local dev.
+Each app has its own `.env.example` (`apps/web/.env.example`, `apps/api/.env.example`) with safe defaults for local dev.
 
 ---
 

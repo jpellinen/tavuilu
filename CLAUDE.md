@@ -40,27 +40,28 @@ Read only what's relevant to your task. Don't load docs speculatively.
 ```
 apps/web/src/
   components/     shared UI (Button, Card, …)
-  features/       feature slices (game/, progression/, auth/, …)
   hooks/          custom hooks (useLocale, useWords, …)
   routes/         page components
   stores/         Zustand stores (settingsStore, progressStore)
   styles/         design system (tokens.css, reset.css, global.css)
-  i18n/           locale JSON files (fi.json, …)
-  utils/          pure helpers (getImageUrl, …)
+  i18n/           locale JSON files (fi.json, en.json)
 
 apps/api/src/
   routes/         Fastify route handlers
-  plugins/        Fastify plugins
-  schemas/        Zod (re-exports from shared/)
+  plugins/        Fastify plugins (empty — scaffolded for Phase 2+)
+  schemas/        Zod validation schemas
+  content-loader.ts  parses fi.json at startup
 
 apps/api/content/
   fi.json         Finnish word list
   images/words/   word images (served as static files)
 
 shared/
-  types.ts        shared domain types
-  schemas.ts      Zod schemas
+  index.ts        re-exports all public types
+  types.ts        shared domain types (Word, UserProgress, Locale)
 ```
+
+**Not yet created (Phase 2+):** `apps/web/src/features/`, `apps/web/src/utils/`
 
 ---
 

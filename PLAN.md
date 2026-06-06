@@ -89,13 +89,11 @@ tavuilu/
     api/               ← Fastify backend (own package.json)
       content/
         fi.json        ← Finnish word list (served via API endpoint)
-        en.json        ← (future)
         images/
           words/       ← word images co-located with content (served as static files)
-  shared/              ← TypeScript types and Zod schemas (no package.json, imported via path alias)
+  shared/              ← TypeScript types (no package.json, imported via path alias)
   docs/                ← All spec files
   docker-compose.yml
-  docker-compose.prod.yml
   CLAUDE.md
   PLAN.md
 ```
