@@ -5,5 +5,11 @@
   "correct": "Correct!",
   "tryAgain": "Try again",
   "difficulty": "Difficulty",
-  "language": "Language"
+  "language": "Language",
+  "tagline": "Let's learn to read together.",
+  "home": "Home",
+  "game": "Game",
+  "gamePlaceholder": "Syllable game coming soon.",
+  "languageFi": "Suomi",
+  "languageEn": "English"
 }

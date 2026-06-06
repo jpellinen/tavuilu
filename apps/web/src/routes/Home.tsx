@@ -8,7 +8,7 @@ export function Home() {
   return (
     <div className={styles.page}>
       <h1 className={styles.title}>Tavuilu</h1>
-      <p className={styles.lead}>Opitaan lukemaan yhdessä.</p>
+      <p className={styles.lead}>{t.tagline}</p>
       <Link to="/game">
         <Button size="lg">{t.startGame}</Button>
       </Link>

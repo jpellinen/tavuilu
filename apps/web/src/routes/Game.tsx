@@ -5,8 +5,8 @@ export function Game() {
   const t = useLocale()
   return (
     <div className={styles.page}>
-      <h1>Peli</h1>
-      <p>Tavupeli tulee tänne.</p>
+      <h1>{t.game}</h1>
+      <p>{t.gamePlaceholder}</p>
       <button disabled>{t.checkAnswer}</button>
     </div>
   )

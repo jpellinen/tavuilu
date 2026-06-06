@@ -21,4 +21,10 @@ export interface Locale {
   tryAgain: string;
   difficulty: string;
   language: string;
+  tagline: string;
+  home: string;
+  game: string;
+  gamePlaceholder: string;
+  languageFi: string;
+  languageEn: string;
 }

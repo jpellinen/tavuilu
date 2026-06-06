@@ -1,7 +1,9 @@
 import { NavLink, Outlet } from 'react-router'
+import { useLocale } from '../hooks/useLocale'
 import styles from './Layout.module.css'
 
 export function Layout() {
+  const t = useLocale()
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
@@ -12,13 +14,13 @@ export function Layout() {
             end
             className={({ isActive }) => (isActive ? styles.linkActive : styles.link)}
           >
-            Etusivu
+            {t.home}
           </NavLink>
           <NavLink
             to="/settings"
             className={({ isActive }) => (isActive ? styles.linkActive : styles.link)}
           >
-            Asetukset
+            {t.settings}
           </NavLink>
         </nav>
       </header>

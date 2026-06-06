@@ -13,8 +13,8 @@ export function Settings() {
       <label className={styles.field}>
         <span>{t.language}</span>
         <select value={language} onChange={(e) => setLanguage(e.target.value as 'fi' | 'en')}>
-          <option value="fi">Suomi</option>
-          <option value="en">English</option>
+          <option value="fi">{t.languageFi}</option>
+          <option value="en">{t.languageEn}</option>
         </select>
       </label>
 
