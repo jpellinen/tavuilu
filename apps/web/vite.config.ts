@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
@@ -11,8 +11,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:3000',
-      '/images': 'http://localhost:3000',
+      '/api': process.env.API_URL ?? 'http://localhost:3000',
+      '/images': process.env.API_URL ?? 'http://localhost:3000',
     },
   },
-});
+})
