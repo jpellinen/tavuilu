@@ -10,7 +10,7 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint src",
     "format": "prettier --write .",
-    "test": "vitest run"
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "@fastify/cors": "^11.0.0",
