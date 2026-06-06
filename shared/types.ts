@@ -24,7 +24,8 @@ export interface Locale {
   tagline: string;
   home: string;
   game: string;
-  gamePlaceholder: string;
+  loadingWords: string;
+  errorLoadingWords: string;
   languageFi: string;
   languageEn: string;
 }

@@ -9,7 +9,8 @@
   "tagline": "Let's learn to read together.",
   "home": "Home",
   "game": "Game",
-  "gamePlaceholder": "Syllable game coming soon.",
+  "loadingWords": "Loading words...",
+  "errorLoadingWords": "Could not load words.",
   "languageFi": "Suomi",
   "languageEn": "English"
 }

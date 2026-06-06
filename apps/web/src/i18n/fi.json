@@ -9,7 +9,8 @@
   "tagline": "Opitaan lukemaan yhdessä.",
   "home": "Etusivu",
   "game": "Peli",
-  "gamePlaceholder": "Tavupeli tulee tänne.",
+  "loadingWords": "Ladataan sanoja...",
+  "errorLoadingWords": "Sanoja ei voitu ladata.",
   "languageFi": "Suomi",
   "languageEn": "English"
 }

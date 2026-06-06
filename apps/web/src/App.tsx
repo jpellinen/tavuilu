@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import { Layout } from './components/Layout'
 import { Home } from './routes/Home'
-import { Game } from './routes/Game'
+import { GamePage } from './features/game/GamePage'
 import { Settings } from './routes/Settings'
 
 const router = createBrowserRouter([
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'game', element: <Game /> },
+      { path: 'game', element: <GamePage /> },
       { path: 'settings', element: <Settings /> },
     ],
   },
