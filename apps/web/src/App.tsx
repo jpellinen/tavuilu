@@ -1,41 +1,21 @@
-import { Button } from './components/Button'
-import { Card } from './components/Card'
-import styles from './App.module.css'
+import { createBrowserRouter, RouterProvider } from 'react-router'
+import { Layout } from './components/Layout'
+import { Home } from './routes/Home'
+import { Game } from './routes/Game'
+import { Settings } from './routes/Settings'
 
-function App() {
-  return (
-    <main className={styles.main}>
-      <h1 className={styles.title}>Tavuilu</h1>
-      <p className={styles.subtitle}>Opitaan lukemaan yhdessä!</p>
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: 'game', element: <Game /> },
+      { path: 'settings', element: <Settings /> },
+    ],
+  },
+])
 
-      <Card className={styles.section}>
-        <h2 className={styles.sectionTitle}>Painikkeet</h2>
-        <div className={styles.row}>
-          <Button variant="primary">Aloita peli</Button>
-          <Button variant="secondary">Asetukset</Button>
-          <Button variant="accent">Kirjaudu</Button>
-          <Button variant="ghost">Peruuta</Button>
-        </div>
-        <div className={styles.row}>
-          <Button size="sm">Pieni</Button>
-          <Button size="md">Keski</Button>
-          <Button size="lg">Suuri</Button>
-        </div>
-        <div className={styles.row}>
-          <Button disabled>Pois käytöstä</Button>
-        </div>
-      </Card>
-
-      <Card variant="outlined" className={styles.section}>
-        <h2 className={styles.sectionTitle}>Korttivariantit</h2>
-        <p>Ääriviivallinen kortti (outlined)</p>
-      </Card>
-
-      <Card variant="flat" className={styles.section}>
-        <p>Litteä kortti (flat)</p>
-      </Card>
-    </main>
-  )
+export default function App() {
+  return <RouterProvider router={router} />
 }
-
-export default App

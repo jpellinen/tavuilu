@@ -7,6 +7,7 @@ services:
       - "5173:5173"
     environment:
       - API_URL=http://api:3000
+      - CI=true
     volumes:
       - ./apps/web:/app/apps/web
       - /app/apps/web/node_modules
