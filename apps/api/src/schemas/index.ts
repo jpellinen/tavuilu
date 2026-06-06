@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const WordSchema = z.object({
   id: z.string(),
@@ -7,6 +7,6 @@ export const WordSchema = z.object({
   difficulty: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   imageRef: z.string(),
   tags: z.array(z.string()),
-});
+})
 
-export const WordListSchema = z.array(WordSchema);
+export const WordListSchema = z.array(WordSchema)

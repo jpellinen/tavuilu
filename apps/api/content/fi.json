@@ -1,0 +1,162 @@
+[
+  {
+    "id": "kala",
+    "word": "kala",
+    "syllables": ["ka", "la"],
+    "difficulty": 1,
+    "imageRef": "kala",
+    "tags": ["animals", "water"]
+  },
+  {
+    "id": "auto",
+    "word": "auto",
+    "syllables": ["au", "to"],
+    "difficulty": 1,
+    "imageRef": "auto",
+    "tags": ["vehicles"]
+  },
+  {
+    "id": "koira",
+    "word": "koira",
+    "syllables": ["koi", "ra"],
+    "difficulty": 1,
+    "imageRef": "koira",
+    "tags": ["animals", "pets"]
+  },
+  {
+    "id": "koti",
+    "word": "koti",
+    "syllables": ["ko", "ti"],
+    "difficulty": 1,
+    "imageRef": "koti",
+    "tags": ["home"]
+  },
+  {
+    "id": "talo",
+    "word": "talo",
+    "syllables": ["ta", "lo"],
+    "difficulty": 1,
+    "imageRef": "talo",
+    "tags": ["home"]
+  },
+  {
+    "id": "pallo",
+    "word": "pallo",
+    "syllables": ["pal", "lo"],
+    "difficulty": 1,
+    "imageRef": "pallo",
+    "tags": ["toys", "sports"]
+  },
+  {
+    "id": "kirja",
+    "word": "kirja",
+    "syllables": ["kir", "ja"],
+    "difficulty": 1,
+    "imageRef": "kirja",
+    "tags": ["school"]
+  },
+  {
+    "id": "lintu",
+    "word": "lintu",
+    "syllables": ["lin", "tu"],
+    "difficulty": 1,
+    "imageRef": "lintu",
+    "tags": ["animals", "birds"]
+  },
+  {
+    "id": "kukka",
+    "word": "kukka",
+    "syllables": ["kuk", "ka"],
+    "difficulty": 1,
+    "imageRef": "kukka",
+    "tags": ["nature", "flowers"]
+  },
+  {
+    "id": "tyttö",
+    "word": "tyttö",
+    "syllables": ["tyt", "tö"],
+    "difficulty": 1,
+    "imageRef": "tyttö",
+    "tags": ["people"]
+  },
+  {
+    "id": "poika",
+    "word": "poika",
+    "syllables": ["poi", "ka"],
+    "difficulty": 1,
+    "imageRef": "poika",
+    "tags": ["people"]
+  },
+  {
+    "id": "vesi",
+    "word": "vesi",
+    "syllables": ["ve", "si"],
+    "difficulty": 1,
+    "imageRef": "vesi",
+    "tags": ["nature", "water"]
+  },
+  {
+    "id": "banaani",
+    "word": "banaani",
+    "syllables": ["ba", "naa", "ni"],
+    "difficulty": 2,
+    "imageRef": "banaani",
+    "tags": ["food", "fruit"]
+  },
+  {
+    "id": "tomaatti",
+    "word": "tomaatti",
+    "syllables": ["to", "maat", "ti"],
+    "difficulty": 2,
+    "imageRef": "tomaatti",
+    "tags": ["food", "vegetables"]
+  },
+  {
+    "id": "peruna",
+    "word": "peruna",
+    "syllables": ["pe", "ru", "na"],
+    "difficulty": 2,
+    "imageRef": "peruna",
+    "tags": ["food", "vegetables"]
+  },
+  {
+    "id": "aurinko",
+    "word": "aurinko",
+    "syllables": ["au", "rin", "ko"],
+    "difficulty": 2,
+    "imageRef": "aurinko",
+    "tags": ["nature", "sky"]
+  },
+  {
+    "id": "perhonen",
+    "word": "perhonen",
+    "syllables": ["per", "ho", "nen"],
+    "difficulty": 2,
+    "imageRef": "perhonen",
+    "tags": ["animals", "insects"]
+  },
+  {
+    "id": "elefantti",
+    "word": "elefantti",
+    "syllables": ["e", "le", "fant", "ti"],
+    "difficulty": 3,
+    "imageRef": "elefantti",
+    "tags": ["animals"]
+  },
+  {
+    "id": "sateenkaari",
+    "word": "sateenkaari",
+    "syllables": ["sa", "teen", "kaa", "ri"],
+    "difficulty": 3,
+    "imageRef": "sateenkaari",
+    "tags": ["nature", "sky"]
+  },
+  {
+    "id": "joulupukki",
+    "word": "joulupukki",
+    "syllables": ["jou", "lu", "puk", "ki"],
+    "difficulty": 3,
+    "imageRef": "joulupukki",
+    "tags": ["holidays"]
+  }
+]
