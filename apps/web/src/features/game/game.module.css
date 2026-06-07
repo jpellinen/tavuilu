@@ -12,3 +12,22 @@
   font-size: var(--font-size-lg);
   padding: var(--space-12);
 }
+
+.submitButton {
+  min-width: 200px;
+}
+
+.feedbackCorrect,
+.feedbackIncorrect {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  text-align: center;
+}
+
+.feedbackCorrect {
+  color: var(--color-success);
+}
+
+.feedbackIncorrect {
+  color: var(--color-error);
+}

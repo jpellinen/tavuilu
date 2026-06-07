@@ -10,6 +10,8 @@ import {
   type DragEndEvent,
   type DragStartEvent,
 } from '@dnd-kit/core'
+import { useLocale } from '../../hooks/useLocale'
+import { Button } from '../../components/Button'
 import { WordDisplay } from './WordDisplay'
 import { SyllableSlots } from './SyllableSlots'
 import { SyllableChips } from './SyllableChips'
@@ -22,8 +24,17 @@ interface GameRoundProps {
 }
 
 export function GameRound({ word }: GameRoundProps) {
-  const { chipById, slotContents, unplacedChips, handleDragEnd, removeFromSlot } =
-    useGameRound(word)
+  const t = useLocale()
+  const {
+    chipById,
+    slotContents,
+    unplacedChips,
+    phase,
+    isComplete,
+    handleDragEnd,
+    removeFromSlot,
+    submit,
+  } = useGameRound(word)
   const [activeChip, setActiveChip] = useState<RoundChip | null>(null)
 
   const sensors = useSensors(
@@ -59,6 +70,17 @@ export function GameRound({ word }: GameRoundProps) {
           {activeChip && <SyllableChip id={activeChip.id} syllable={activeChip.syllable} overlay />}
         </DragOverlay>
       </DndContext>
+      <Button
+        type="button"
+        size="lg"
+        className={styles.submitButton}
+        disabled={!isComplete || phase !== 'active'}
+        onClick={submit}
+      >
+        {t.checkAnswer}
+      </Button>
+      {phase === 'correct' && <p className={styles.feedbackCorrect}>{t.correct}</p>}
+      {phase === 'incorrect' && <p className={styles.feedbackIncorrect}>{t.tryAgain}</p>}
     </div>
   )
 }
