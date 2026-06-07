@@ -3,6 +3,7 @@ import { useWords } from '../../hooks/useWords'
 import { useLocale } from '../../hooks/useLocale'
 import { WordDisplay } from './WordDisplay'
 import { SyllableSlots } from './SyllableSlots'
+import { SyllableChips } from './SyllableChips'
 import styles from './game.module.css'
 
 export function GamePage() {
@@ -26,6 +27,7 @@ export function GamePage() {
     <div className={styles.page}>
       <WordDisplay word={currentWord} />
       <SyllableSlots word={currentWord} slotContents={emptySlots} />
+      <SyllableChips word={currentWord} />
     </div>
   )
 }

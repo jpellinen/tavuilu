@@ -1,0 +1,16 @@
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  min-height: 48px;
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  cursor: grab;
+}
