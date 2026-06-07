@@ -18,6 +18,12 @@
 .filled {
   background-color: var(--color-surface);
   border: 2px solid var(--color-primary);
+  cursor: pointer;
+}
+
+.over {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-hover);
 }
 
 .chipText {

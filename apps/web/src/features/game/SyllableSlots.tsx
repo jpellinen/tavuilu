@@ -1,14 +1,16 @@
 import type { Word } from '@tavuilu/shared'
 import { useLocale } from '../../hooks/useLocale'
 import { DropSlot } from './DropSlot'
+import type { RoundChip } from './useGameRound'
 import styles from './SyllableSlots.module.css'
 
 interface SyllableSlotsProps {
   word: Word
-  slotContents: (string | null)[]
+  slotContents: (RoundChip | null)[]
+  onRemoveChip: (slotIndex: number) => void
 }
 
-export function SyllableSlots({ word, slotContents }: SyllableSlotsProps) {
+export function SyllableSlots({ word, slotContents, onRemoveChip }: SyllableSlotsProps) {
   const t = useLocale()
 
   return (
@@ -17,8 +19,9 @@ export function SyllableSlots({ word, slotContents }: SyllableSlotsProps) {
         <DropSlot
           key={i}
           index={i}
-          content={slotContents[i] ?? null}
+          chip={slotContents[i] ?? null}
           ariaLabel={`${t.slotLabel} ${i + 1}`}
+          onRemove={() => onRemoveChip(i)}
         />
       ))}
     </div>

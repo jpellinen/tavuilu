@@ -1,20 +1,16 @@
-import { useMemo } from 'react'
-import type { Word } from '@tavuilu/shared'
-import { shuffle } from './shuffle'
+import type { RoundChip } from './useGameRound'
 import { SyllableChip } from './SyllableChip'
 import styles from './SyllableChips.module.css'
 
 interface SyllableChipsProps {
-  word: Word
+  chips: RoundChip[]
 }
 
-export function SyllableChips({ word }: SyllableChipsProps) {
-  const shuffled = useMemo(() => shuffle(word.syllables), [word])
-
+export function SyllableChips({ chips }: SyllableChipsProps) {
   return (
     <div className={styles.chipsRow} role="group">
-      {shuffled.map((syllable, i) => (
-        <SyllableChip key={`${syllable}-${i}`} syllable={syllable} />
+      {chips.map((chip) => (
+        <SyllableChip key={chip.id} id={chip.id} syllable={chip.syllable} />
       ))}
     </div>
   )

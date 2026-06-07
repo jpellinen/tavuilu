@@ -13,4 +13,14 @@
   font-weight: 700;
   color: var(--color-primary);
   cursor: grab;
+  touch-action: none;
+}
+
+.dragging {
+  opacity: 0.4;
+}
+
+.overlay {
+  cursor: grabbing;
+  box-shadow: var(--shadow-md);
 }

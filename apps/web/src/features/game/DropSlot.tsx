@@ -1,19 +1,27 @@
+import { useDroppable } from '@dnd-kit/core'
+import type { RoundChip } from './useGameRound'
+import { SLOT_DROPPABLE_PREFIX } from './useGameRound'
+import { SyllableChip } from './SyllableChip'
 import styles from './DropSlot.module.css'
 
 interface DropSlotProps {
   index: number
-  content: string | null
+  chip: RoundChip | null
   ariaLabel: string
+  onRemove: () => void
 }
 
-export function DropSlot({ index, content, ariaLabel }: DropSlotProps) {
+export function DropSlot({ index, chip, ariaLabel, onRemove }: DropSlotProps) {
+  const { setNodeRef, isOver } = useDroppable({ id: `${SLOT_DROPPABLE_PREFIX}${index}` })
+
   return (
     <div
-      className={`${styles.slot} ${content !== null ? styles.filled : styles.empty}`}
+      ref={setNodeRef}
+      className={`${styles.slot} ${chip !== null ? styles.filled : styles.empty} ${isOver ? styles.over : ''}`}
       aria-label={ariaLabel}
-      data-slot-index={index}
+      onClick={chip !== null ? onRemove : undefined}
     >
-      {content !== null && <span className={styles.chipText}>{content}</span>}
+      {chip !== null && <SyllableChip id={chip.id} syllable={chip.syllable} />}
     </div>
   )
 }
