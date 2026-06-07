@@ -21,7 +21,13 @@ export function DropSlot({ index, chip, ariaLabel, onRemove }: DropSlotProps) {
       aria-label={ariaLabel}
       onClick={chip !== null ? onRemove : undefined}
     >
-      {chip !== null && <SyllableChip id={chip.id} syllable={chip.syllable} />}
+      {chip !== null ? (
+        <SyllableChip id={chip.id} syllable={chip.syllable} />
+      ) : (
+        <span className={styles.placeholder} aria-hidden="true">
+          {' '}
+        </span>
+      )}
     </div>
   )
 }
