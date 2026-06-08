@@ -37,7 +37,7 @@ export function Confetti() {
   const particles = useMemo(() => createParticles(), [])
 
   return (
-    <div className={styles.burst} aria-hidden="true">
+    <div className={styles.burst} aria-hidden="true" data-testid="confetti-burst">
       {particles.map((particle, i) => (
         <motion.span
           key={i}

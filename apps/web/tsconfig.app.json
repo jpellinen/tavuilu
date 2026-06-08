@@ -25,5 +25,5 @@
       "@tavuilu/shared": ["../../shared/index.ts"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "e2e"]
 }

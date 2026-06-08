@@ -39,24 +39,17 @@ Vite hot-reloads after that — no restart needed.
 
 ## 3. Drive it with Playwright
 
-> **TODO (Phase 2 step 9):** Once `apps/web/e2e/` and the Playwright E2E suite
-> exist (`docs/technical/frontend.md` / `PLAN.md` Phase 2 step 9), replace the
-> scratch-directory setup below with the project's own `@playwright/test`
-> devDependency — `npx playwright test` or its installed browsers can be reused
-> directly instead of bootstrapping a throwaway npm project each time.
-
-`chromium-cli` is not installed in this environment. Use Playwright directly —
-it is not a project dependency yet, so install it in a scratch directory:
+`apps/web` now has `@playwright/test` as a devDependency with browsers already
+installed via `pnpm exec playwright install chromium` — no scratch-directory
+bootstrap needed. Reuse it directly:
 
 ```bash
-mkdir -p /tmp/tavuilu-verify && cd /tmp/tavuilu-verify
-npm init -y >/dev/null 2>&1
-npm install playwright@1.60.0 >/dev/null 2>&1
-npx playwright install chromium
+cd /Users/juha/Coding/tavuilu/apps/web
 ```
 
-Then write a small driver script (`verify.js`) and run it with `node verify.js`.
-Skeleton:
+For a one-off ad-hoc drive (screenshots, exploratory checks), write a small
+script using the project's installed `playwright` package and run it with
+`pnpm exec tsx verify.ts` or plain `node`:
 
 ```js
 const { chromium } = require('playwright')
@@ -84,6 +77,17 @@ main().catch((err) => { console.error(err); process.exit(1) })
 Read the resulting PNGs with the Read tool to visually confirm — a screenshot
 on disk that you never look at proves nothing.
 
+For verifying the actual drag-and-drop round behavior (success/error paths,
+XP awarding, confetti), prefer running the project's own E2E suite instead of
+writing a one-off script — it already covers this:
+
+```bash
+pnpm playwright              # runs apps/web/e2e/game.spec.ts against a dev server it boots itself
+```
+
+See `apps/web/e2e/game.spec.ts` for the canonical drag helper (`dragOnto`),
+including the activation-distance and drop-animation timing notes below.
+
 ## App-specific notes
 
 - **Routes**: `/`, `/game`, `/settings` (see `apps/web/src/App.tsx`).
@@ -109,6 +113,8 @@ on disk that you never look at proves nothing.
 
 ## Cleanup
 
-The scratch Playwright project in `/tmp/tavuilu-verify` is disposable —
+If you wrote an ad-hoc driver script and screenshots to `/tmp/tavuilu-verify`,
 remove it when done (`rm -rf /tmp/tavuilu-verify`) unless you expect to verify
-again soon in the same session.
+again soon in the same session. The project's own E2E suite
+(`apps/web/e2e/`, run via `pnpm playwright`) needs no cleanup — its
+`test-results/`/`playwright-report/` output is gitignored.

@@ -33,6 +33,31 @@ jobs:
 
       - run: pnpm test
 
+  web-e2e:
+    name: Web (Playwright E2E)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/web/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm exec playwright install --with-deps chromium
+
+      - run: pnpm playwright
+
   api:
     name: API (lint / type-check / test)
     runs-on: ubuntu-latest
