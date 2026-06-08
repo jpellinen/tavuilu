@@ -1,31 +1,36 @@
 import { useState } from 'react'
 import type { Word } from '@tavuilu/shared'
 import { useSettingsStore } from '../../stores/settingsStore'
+import { useProgressStore } from '../../stores/progressStore'
 import { useWords } from '../../hooks/useWords'
 import { useLocale } from '../../hooks/useLocale'
 import { GameRound } from './GameRound'
+import { selectNextWord } from './selectNextWord'
 import styles from './game.module.css'
-
-function pickNextWord(words: Word[], excludeId?: string): Word | null {
-  if (words.length === 0) return null
-  const candidates = words.filter((word) => word.id !== excludeId)
-  const pool = candidates.length > 0 ? candidates : words
-  return pool[Math.floor(Math.random() * pool.length)]
-}
 
 export function GamePage() {
   const t = useLocale()
   const language = useSettingsStore((s) => s.language)
   const difficulty = useSettingsStore((s) => s.difficulty)
+  const completedWordIds = useProgressStore((s) => s.completedWordIds)
   const { words, loading, error } = useWords(language, difficulty)
   const [sessionWords, setSessionWords] = useState(words)
+  const [sessionPlayed, setSessionPlayed] = useState<string[]>([])
   const [currentWord, setCurrentWord] = useState<Word | null>(null)
+
+  function advance(played: string[]) {
+    const next = selectNextWord(words, completedWordIds, played)
+    setCurrentWord(next)
+    setSessionPlayed(next ? [...played, next.id] : played)
+  }
 
   if (sessionWords !== words) {
     setSessionWords(words)
-    setCurrentWord((prev) =>
-      prev && words.some((word) => word.id === prev.id) ? prev : pickNextWord(words)
-    )
+    if (currentWord && words.some((word) => word.id === currentWord.id)) {
+      setSessionPlayed([currentWord.id])
+    } else {
+      advance([])
+    }
   }
 
   if (loading) {
@@ -36,10 +41,5 @@ export function GamePage() {
     return <div className={styles.status}>{t.errorLoadingWords}</div>
   }
 
-  return (
-    <GameRound
-      word={currentWord}
-      onRoundComplete={() => setCurrentWord((prev) => pickNextWord(words, prev?.id))}
-    />
-  )
+  return <GameRound word={currentWord} onRoundComplete={() => advance(sessionPlayed)} />
 }
