@@ -93,7 +93,6 @@ export function useGameRound(word: Word) {
   }
 
   return {
-    chips,
     chipById,
     slotContents,
     unplacedChips,

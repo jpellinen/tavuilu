@@ -63,7 +63,7 @@ function computeXP(difficulty: 1 | 2 | 3, durationMs: number, firstAttempt: bool
 }
 ```
 
-This is a pure function — lives in `src/features/game/computeXP.ts`, unit-tested with Vitest.
+This is a pure function — lives in `src/features/syllable-game/computeXP.ts`, unit-tested with Vitest.
 
 ---
 

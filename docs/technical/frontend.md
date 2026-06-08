@@ -30,7 +30,7 @@ Routes are defined in `App.tsx` using `createBrowserRouter`:
 
 ```
 /           → Home (routes/Home.tsx)
-/game       → Game (features/game/GamePage.tsx)
+/game       → Game (features/syllable-game/GamePage.tsx)
 /settings   → Settings (routes/Settings.tsx)
 ```
 
@@ -43,7 +43,7 @@ Routes are defined in `App.tsx` using `createBrowserRouter`:
 Feature code lives in `src/features/{feature}/`. Each feature slice is self-contained: its components, hooks, helpers, and types stay inside the slice. Only the route component (the `*Page.tsx`) is registered in the router.
 
 ```
-src/features/game/
+src/features/syllable-game/
   GamePage.tsx         ← route component
   WordDisplay.tsx
   SyllableSlots.tsx
@@ -221,7 +221,7 @@ Configured in `tsconfig.json` via `paths`. Never use relative `../../shared/` pa
 **E2E tests** (Playwright): in `apps/web/e2e/`. Run with `pnpm --filter web playwright test`. Chromium only in CI; add Firefox/WebKit locally as desired.
 
 Test files for Phase 2:
-- `src/features/game/validateAnswer.test.ts`
-- `src/features/game/selectNextWord.test.ts`
-- `src/features/game/computeXP.test.ts`
+- `src/features/syllable-game/validateAnswer.test.ts`
+- `src/features/syllable-game/selectNextWord.test.ts`
+- `src/features/syllable-game/computeXP.test.ts`
 - `e2e/game.spec.ts`

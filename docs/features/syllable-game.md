@@ -126,7 +126,7 @@ Words are selected from the list returned by `useWords(lang, difficulty)`.
 ## Component Structure
 
 ```
-apps/web/src/features/game/
+apps/web/src/features/syllable-game/
   GamePage.tsx          ← route component; fetches words, manages round state
   WordDisplay.tsx       ← word image + text at top
   SyllableSlots.tsx     ← row of drop-target slots
@@ -177,7 +177,7 @@ Layout rules:
 
 ## Tests
 
-**Vitest unit tests** (`src/features/game/`):
+**Vitest unit tests** (`src/features/syllable-game/`):
 - `validateAnswer`: correct, incorrect, edge cases (single syllable, 4+ syllables, mismatched length)
 - `selectNextWord`: returns unused words first, falls back to completed, handles empty list
 

@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import { Layout } from './components/Layout'
 import { Home } from './routes/Home'
-import { GamePage } from './features/game/GamePage'
+import { GamePage } from './features/syllable-game/GamePage'
 import { Settings } from './routes/Settings'
 
 const router = createBrowserRouter([
