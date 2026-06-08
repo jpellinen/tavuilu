@@ -21,9 +21,10 @@ import styles from './game.module.css'
 
 interface GameRoundProps {
   word: Word
+  onRoundComplete: () => void
 }
 
-export function GameRound({ word }: GameRoundProps) {
+export function GameRound({ word, onRoundComplete }: GameRoundProps) {
   const t = useLocale()
   const {
     chipById,
@@ -34,7 +35,7 @@ export function GameRound({ word }: GameRoundProps) {
     handleDragEnd,
     removeFromSlot,
     submit,
-  } = useGameRound(word)
+  } = useGameRound(word, onRoundComplete)
   const [activeChip, setActiveChip] = useState<RoundChip | null>(null)
 
   const sensors = useSensors(

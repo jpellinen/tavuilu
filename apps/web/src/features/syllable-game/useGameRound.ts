@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { DragEndEvent } from '@dnd-kit/core'
 import type { Word } from '@tavuilu/shared'
+import { useProgressStore } from '../../stores/progressStore'
 import { shuffle } from './shuffle'
 import { validateAnswer } from './validateAnswer'
+import { computeXP } from './computeXP'
 
 export interface RoundChip {
   id: string
@@ -13,6 +15,8 @@ export type RoundPhase = 'active' | 'correct' | 'incorrect'
 
 export const SLOT_DROPPABLE_PREFIX = 'slot-'
 
+const NEXT_WORD_DELAY_MS = 1500
+
 function createChips(word: Word): RoundChip[] {
   return shuffle(word.syllables.map((syllable, i) => ({ id: `${word.id}-${i}`, syllable })))
 }
@@ -21,17 +25,32 @@ function emptySlots(word: Word): (string | null)[] {
   return Array<string | null>(word.syllables.length).fill(null)
 }
 
-export function useGameRound(word: Word) {
+export function useGameRound(word: Word, onRoundComplete: () => void) {
   const chips = useMemo(() => createChips(word), [word])
   const [slotChipIds, setSlotChipIds] = useState<(string | null)[]>(() => emptySlots(word))
   const [phase, setPhase] = useState<RoundPhase>('active')
   const [roundWordId, setRoundWordId] = useState(word.id)
+  const addXP = useProgressStore((s) => s.addXP)
+  const markWordCompleted = useProgressStore((s) => s.markWordCompleted)
+  const startedAtRef = useRef(0)
+  const hadErrorRef = useRef(false)
 
   if (roundWordId !== word.id) {
     setRoundWordId(word.id)
     setSlotChipIds(emptySlots(word))
     setPhase('active')
   }
+
+  useEffect(() => {
+    startedAtRef.current = Date.now()
+    hadErrorRef.current = false
+  }, [word.id])
+
+  useEffect(() => {
+    if (phase !== 'correct') return undefined
+    const timeout = setTimeout(onRoundComplete, NEXT_WORD_DELAY_MS)
+    return () => clearTimeout(timeout)
+  }, [phase, onRoundComplete])
 
   const chipById = useMemo(() => new Map(chips.map((chip) => [chip.id, chip])), [chips])
   const placedIds = useMemo(
@@ -89,7 +108,16 @@ export function useGameRound(word: Word) {
   function submit() {
     if (phase !== 'active' || !isComplete) return
     const slots = slotChipIds.map((id) => chipById.get(id as string)?.syllable ?? '')
-    setPhase(validateAnswer(slots, word.syllables) ? 'correct' : 'incorrect')
+
+    if (validateAnswer(slots, word.syllables)) {
+      const durationMs = Date.now() - startedAtRef.current
+      addXP(computeXP(word.difficulty, durationMs, !hadErrorRef.current))
+      markWordCompleted(word.id)
+      setPhase('correct')
+    } else {
+      hadErrorRef.current = true
+      setPhase('incorrect')
+    }
   }
 
   return {
