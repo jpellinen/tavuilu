@@ -31,6 +31,17 @@
   outline-color: var(--color-primary-hover);
 }
 
+.flashError {
+  animation: flashError 0.4s ease-in-out;
+}
+
+@keyframes flashError {
+  30% {
+    background-color: var(--color-error-light);
+    outline-color: var(--color-error);
+  }
+}
+
 .chipText {
   font-size: var(--font-size-xl);
   font-weight: 700;

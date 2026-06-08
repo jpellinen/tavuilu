@@ -5,9 +5,14 @@
   gap: var(--space-4);
 }
 
-.imageFrame {
+.imageStage {
+  position: relative;
   width: 100%;
   max-width: 260px;
+}
+
+.imageFrame {
+  width: 100%;
   aspect-ratio: 1;
   border-radius: var(--radius-xl);
   overflow: hidden;
@@ -34,7 +39,7 @@
 }
 
 @media (min-width: 768px) {
-  .imageFrame {
+  .imageStage {
     max-width: 280px;
   }
 }

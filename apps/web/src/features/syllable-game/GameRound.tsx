@@ -57,14 +57,19 @@ export function GameRound({ word }: GameRoundProps) {
 
   return (
     <div className={styles.page}>
-      <WordDisplay word={word} />
+      <WordDisplay word={word} celebrate={phase === 'correct'} />
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
         onDragCancel={onDragCancel}
       >
-        <SyllableSlots word={word} slotContents={slotContents} onRemoveChip={removeFromSlot} />
+        <SyllableSlots
+          word={word}
+          slotContents={slotContents}
+          onRemoveChip={removeFromSlot}
+          error={phase === 'incorrect'}
+        />
         <SyllableChips chips={unplacedChips} />
         <DragOverlay>
           {activeChip && <SyllableChip id={activeChip.id} syllable={activeChip.syllable} overlay />}

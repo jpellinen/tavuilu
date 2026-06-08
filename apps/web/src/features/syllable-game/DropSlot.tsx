@@ -9,15 +9,16 @@ interface DropSlotProps {
   chip: RoundChip | null
   ariaLabel: string
   onRemove: () => void
+  flashError?: boolean
 }
 
-export function DropSlot({ index, chip, ariaLabel, onRemove }: DropSlotProps) {
+export function DropSlot({ index, chip, ariaLabel, onRemove, flashError = false }: DropSlotProps) {
   const { setNodeRef, isOver } = useDroppable({ id: `${SLOT_DROPPABLE_PREFIX}${index}` })
 
   return (
     <div
       ref={setNodeRef}
-      className={`${styles.slot} ${chip !== null ? styles.filled : styles.empty} ${isOver ? styles.over : ''}`}
+      className={`${styles.slot} ${chip !== null ? styles.filled : styles.empty} ${isOver ? styles.over : ''} ${flashError ? styles.flashError : ''}`}
       aria-label={ariaLabel}
       onClick={chip !== null ? onRemove : undefined}
     >
