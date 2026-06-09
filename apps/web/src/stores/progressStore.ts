@@ -7,6 +7,7 @@ interface ProgressState {
   completedWordIds: string[]
   addXP: (amount: number) => void
   markWordCompleted: (id: string) => void
+  setProgress: (data: { xp: number; level: number; completedWordIds: string[] }) => void
   reset: () => void
 }
 
@@ -31,6 +32,7 @@ export const useProgressStore = create<ProgressState>()(
             ? s.completedWordIds
             : [...s.completedWordIds, id],
         })),
+      setProgress: (data) => set(data),
       reset: () => set({ xp: 0, level: 1, completedWordIds: [] }),
     }),
     { name: 'tavuilu-progress' }

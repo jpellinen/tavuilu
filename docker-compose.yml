@@ -24,6 +24,7 @@ services:
     environment:
       - PORT=3000
       - DATABASE_URL=postgresql://tavuilu:tavuilu@db:5432/tavuilu
+      - CI=true
     volumes:
       - ./apps/api:/app/apps/api
       - /app/apps/api/node_modules

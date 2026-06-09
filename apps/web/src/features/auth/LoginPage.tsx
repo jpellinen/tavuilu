@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { Button } from '../../components/Button'
 import { useLocale } from '../../hooks/useLocale'
+import { authClient } from '../../lib/auth-client'
 import styles from './AuthForm.module.css'
 
 export function LoginPage() {
@@ -16,23 +17,13 @@ export function LoginPage() {
     e.preventDefault()
     setError(null)
     setSubmitting(true)
-    try {
-      const res = await fetch('/api/auth/sign-in/email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-      })
-      if (!res.ok) {
-        setError(t.loginError)
-        return
-      }
-      navigate('/settings')
-    } catch {
+    const { error: signInError } = await authClient.signIn.email({ email, password })
+    setSubmitting(false)
+    if (signInError) {
       setError(t.loginError)
-    } finally {
-      setSubmitting(false)
+      return
     }
+    navigate('/settings')
   }
 
   return (

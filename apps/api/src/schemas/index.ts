@@ -10,3 +10,10 @@ export const WordSchema = z.object({
 })
 
 export const WordListSchema = z.array(WordSchema)
+
+export const RoundRequestSchema = z.object({
+  wordId: z.string(),
+  durationMs: z.number().int().nonnegative(),
+  correct: z.boolean(),
+  firstAttempt: z.boolean(),
+})

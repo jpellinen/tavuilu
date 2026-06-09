@@ -2,11 +2,13 @@ import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { Button } from '../../components/Button'
 import { useLocale } from '../../hooks/useLocale'
+import { authClient } from '../../lib/auth-client'
 import styles from './AuthForm.module.css'
 
 export function RegisterPage() {
   const t = useLocale()
   const navigate = useNavigate()
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -16,23 +18,13 @@ export function RegisterPage() {
     e.preventDefault()
     setError(null)
     setSubmitting(true)
-    try {
-      const res = await fetch('/api/auth/sign-up/email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-      })
-      if (!res.ok) {
-        setError(t.registerError)
-        return
-      }
-      navigate('/settings')
-    } catch {
+    const { error: signUpError } = await authClient.signUp.email({ name, email, password })
+    setSubmitting(false)
+    if (signUpError) {
       setError(t.registerError)
-    } finally {
-      setSubmitting(false)
+      return
     }
+    navigate('/settings')
   }
 
   return (
@@ -41,6 +33,19 @@ export function RegisterPage() {
         <h1 className={styles.title}>{t.register}</h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.field}>
+            <label htmlFor="name">{t.name}</label>
+            <input
+              id="name"
+              type="text"
+              autoComplete="name"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={submitting}
+            />
+          </div>
+
           <div className={styles.field}>
             <label htmlFor="email">{t.email}</label>
             <input

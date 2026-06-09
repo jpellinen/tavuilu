@@ -1,9 +1,11 @@
 import { NavLink, Outlet } from 'react-router'
 import { useLocale } from '../hooks/useLocale'
+import { useProgressSync } from '../hooks/useProgressSync'
 import styles from './Layout.module.css'
 
 export function Layout() {
   const t = useLocale()
+  useProgressSync()
   return (
     <div className={styles.shell}>
       <header className={styles.header}>

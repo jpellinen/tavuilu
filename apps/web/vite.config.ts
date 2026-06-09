@@ -9,6 +9,9 @@ export default defineConfig({
       '@tavuilu/shared': path.resolve(__dirname, '../../shared/index.ts'),
     },
   },
+  optimizeDeps: {
+    exclude: ['better-auth'],
+  },
   server: {
     proxy: {
       '/api': process.env.API_URL ?? 'http://localhost:3000',

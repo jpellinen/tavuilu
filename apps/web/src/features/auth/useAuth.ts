@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
+import { authClient } from '../../lib/auth-client'
 
 export interface AuthUser {
   id: string
@@ -13,56 +14,30 @@ interface AuthState {
 }
 
 export function useAuth(): AuthState {
-  const [state, setState] = useState<AuthState>({ user: null, loading: true, isAnonymous: true })
+  const { data: session, isPending } = authClient.useSession()
+  const anonymousTriggered = useRef(false)
 
   useEffect(() => {
-    let cancelled = false
-
-    async function initSession() {
-      try {
-        const res = await fetch('/api/auth/session', { credentials: 'include' })
-        if (res.ok) {
-          const data = await res.json()
-          if (!cancelled && data?.user) {
-            setState({
-              user: data.user,
-              loading: false,
-              isAnonymous: data.user.isAnonymous ?? true,
-            })
-            return
-          }
-        }
-      } catch {
-        // API not available yet — fall through to anonymous
-      }
-
-      // No session — try to create an anonymous one
-      try {
-        const res = await fetch('/api/auth/sign-in/anonymous', {
-          method: 'POST',
-          credentials: 'include',
-        })
-        if (res.ok) {
-          const data = await res.json()
-          if (!cancelled && data?.user) {
-            setState({ user: data.user, loading: false, isAnonymous: true })
-            return
-          }
-        }
-      } catch {
-        // API not available yet
-      }
-
-      if (!cancelled) {
-        setState({ user: null, loading: false, isAnonymous: true })
-      }
+    if (!isPending && !session && !anonymousTriggered.current) {
+      anonymousTriggered.current = true
+      authClient.signIn.anonymous().catch(() => {})
     }
+  }, [isPending, session])
 
-    initSession()
-    return () => {
-      cancelled = true
-    }
-  }, [])
+  if (isPending) {
+    return { user: null, loading: true, isAnonymous: true }
+  }
 
-  return state
+  if (!session) {
+    return { user: null, loading: false, isAnonymous: true }
+  }
+
+  const isAnonymous = (session.user as { isAnonymous?: boolean | null }).isAnonymous === true
+  const user: AuthUser = {
+    id: session.user.id,
+    email: session.user.email ?? null,
+    isAnonymous,
+  }
+
+  return { user, loading: false, isAnonymous }
 }

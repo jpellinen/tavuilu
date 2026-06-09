@@ -16,6 +16,7 @@
   "slotLabel": "Paikka",
   "login": "Kirjaudu sisään",
   "register": "Rekisteröidy",
+  "name": "Nimi",
   "email": "Sähköposti",
   "password": "Salasana",
   "logOut": "Kirjaudu ulos",

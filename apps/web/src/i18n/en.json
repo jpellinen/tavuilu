@@ -16,6 +16,7 @@
   "slotLabel": "Slot",
   "login": "Log in",
   "register": "Register",
+  "name": "Name",
   "email": "Email",
   "password": "Password",
   "logOut": "Log out",

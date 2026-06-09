@@ -32,6 +32,7 @@ export function useGameRound(word: Word, onRoundComplete: () => void) {
   const [roundWordId, setRoundWordId] = useState(word.id)
   const addXP = useProgressStore((s) => s.addXP)
   const markWordCompleted = useProgressStore((s) => s.markWordCompleted)
+  const setProgress = useProgressStore((s) => s.setProgress)
   const startedAtRef = useRef(0)
   const hadErrorRef = useRef(false)
 
@@ -111,9 +112,19 @@ export function useGameRound(word: Word, onRoundComplete: () => void) {
 
     if (validateAnswer(slots, word.syllables)) {
       const durationMs = Date.now() - startedAtRef.current
-      addXP(computeXP(word.difficulty, durationMs, !hadErrorRef.current))
+      const firstAttempt = !hadErrorRef.current
+      addXP(computeXP(word.difficulty, durationMs, firstAttempt))
       markWordCompleted(word.id)
       setPhase('correct')
+      fetch('/api/progress/round', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ wordId: word.id, durationMs, correct: true, firstAttempt }),
+      })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => data && setProgress(data))
+        .catch(() => {})
     } else {
       hadErrorRef.current = true
       setPhase('incorrect')
