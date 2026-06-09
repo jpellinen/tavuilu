@@ -13,5 +13,16 @@
   "errorLoadingWords": "Could not load words.",
   "languageFi": "Suomi",
   "languageEn": "English",
-  "slotLabel": "Slot"
+  "slotLabel": "Slot",
+  "login": "Log in",
+  "register": "Register",
+  "email": "Email",
+  "password": "Password",
+  "logOut": "Log out",
+  "loggedInAs": "Logged in as:",
+  "loginError": "Login failed. Check your email and password.",
+  "registerError": "Registration failed. Please try again.",
+  "alreadyHaveAccount": "Already have an account?",
+  "noAccountYet": "No account yet?",
+  "createAccount": "Create account"
 }

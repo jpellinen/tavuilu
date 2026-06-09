@@ -13,5 +13,16 @@
   "errorLoadingWords": "Sanoja ei voitu ladata.",
   "languageFi": "Suomi",
   "languageEn": "English",
-  "slotLabel": "Paikka"
+  "slotLabel": "Paikka",
+  "login": "Kirjaudu sisään",
+  "register": "Rekisteröidy",
+  "email": "Sähköposti",
+  "password": "Salasana",
+  "logOut": "Kirjaudu ulos",
+  "loggedInAs": "Kirjautunut:",
+  "loginError": "Kirjautuminen epäonnistui. Tarkista sähköposti ja salasana.",
+  "registerError": "Rekisteröinti epäonnistui. Yritä uudelleen.",
+  "alreadyHaveAccount": "Onko sinulla jo tili?",
+  "noAccountYet": "Ei vielä tiliä?",
+  "createAccount": "Luo tili"
 }

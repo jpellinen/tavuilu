@@ -29,4 +29,15 @@ export interface Locale {
   languageFi: string;
   languageEn: string;
   slotLabel: string;
+  login: string;
+  register: string;
+  email: string;
+  password: string;
+  logOut: string;
+  loggedInAs: string;
+  loginError: string;
+  registerError: string;
+  alreadyHaveAccount: string;
+  noAccountYet: string;
+  createAccount: string;
 }
