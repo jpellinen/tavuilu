@@ -8,7 +8,13 @@
 .imageStage {
   position: relative;
   width: 100%;
-  max-width: 260px;
+  max-width: 200px;
+}
+
+@media (min-width: 480px) {
+  .imageStage {
+    max-width: 240px;
+  }
 }
 
 .imageFrame {
@@ -30,7 +36,7 @@
 }
 
 .wordText {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-2xl);
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
@@ -38,8 +44,14 @@
   letter-spacing: 0.04em;
 }
 
+@media (min-width: 480px) {
+  .wordText {
+    font-size: var(--font-size-3xl);
+  }
+}
+
 @media (min-width: 768px) {
   .imageStage {
-    max-width: 280px;
+    max-width: 320px;
   }
 }

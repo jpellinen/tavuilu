@@ -1,7 +1,13 @@
 .chipsRow {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: var(--space-3);
   justify-content: center;
   align-items: center;
+}
+
+@media (min-width: 768px) {
+  .chipsRow {
+    gap: var(--space-5);
+  }
 }

@@ -48,3 +48,9 @@
   color: var(--color-primary);
   padding: var(--space-3) var(--space-5);
 }
+
+@media (min-width: 768px) {
+  .chipText {
+    font-size: var(--font-size-2xl);
+  }
+}

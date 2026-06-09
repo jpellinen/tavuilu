@@ -64,3 +64,10 @@
   --transition-base: 200ms ease;
   --transition-slow: 350ms ease;
 }
+
+/*
+ * Responsive breakpoints (min-width, mobile-first):
+ *   480px  — large phone / small landscape
+ *   768px  — tablet (primary target for this children's app)
+ *   1024px — desktop
+ */

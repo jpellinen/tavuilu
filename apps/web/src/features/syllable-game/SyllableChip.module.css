@@ -17,6 +17,14 @@
   z-index: 0;
 }
 
+@media (min-width: 768px) {
+  .chip {
+    min-width: 72px;
+    min-height: 56px;
+    font-size: var(--font-size-2xl);
+  }
+}
+
 .dragging {
   opacity: 0.4;
 }
