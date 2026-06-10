@@ -178,10 +178,10 @@ Each phase begins by writing the relevant `docs/` files before implementation st
 *Docs to write first:* `docs/features/auth.md`, `docs/technical/backend.md`, `docs/technical/database.md`
 
 1. Registration / login UI (minimal, child-friendly)
-2. `better-auth` + Prisma Postgres schema for users and progress
-3. Sync: on login, merge local-storage snapshot with server state
+2. `better-auth` + Prisma Postgres schema for users and progress; anonymous accounts created on first visit, server is the source of truth for progress from round one
+3. Remove `progressStore`'s localStorage persistence — store becomes a pure in-memory cache hydrated from `GET /api/progress`
 4. Soft prompt after completed rounds: "Create an account to save your progress!"
-5. Guest-to-account upgrade flow (no progress lost)
+5. Verify guest-to-account upgrade flow: registering links credentials to the existing anonymous user (same ID, same `Progress` row) — no merge step, no progress lost
 
 ### Phase 4 — Polish + Expansion
 
@@ -211,7 +211,7 @@ Each phase begins by writing the relevant `docs/` files before implementation st
 
 **After Phase 3:**
 - E2E: register → play → refresh → progress retained server-side
-- E2E: guest play → register → XP from local session merged to account
+- E2E: anonymous play → register (account linking) → progress persists under the same account, no merge step
 
 ---
 
