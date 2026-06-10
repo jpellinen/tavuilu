@@ -25,5 +25,7 @@
   "registerError": "Rekisteröinti epäonnistui. Yritä uudelleen.",
   "alreadyHaveAccount": "Onko sinulla jo tili?",
   "noAccountYet": "Ei vielä tiliä?",
-  "createAccount": "Luo tili"
+  "createAccount": "Luo tili",
+  "registerPromptMessage": "Rekisteröidy, niin edistymisesi säilyy kaikilla laitteilla!",
+  "registerPromptDismiss": "Ehkä myöhemmin"
 }

@@ -41,4 +41,6 @@ export interface Locale {
   alreadyHaveAccount: string;
   noAccountYet: string;
   createAccount: string;
+  registerPromptMessage: string;
+  registerPromptDismiss: string;
 }

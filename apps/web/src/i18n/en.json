@@ -25,5 +25,7 @@
   "registerError": "Registration failed. Please try again.",
   "alreadyHaveAccount": "Already have an account?",
   "noAccountYet": "No account yet?",
-  "createAccount": "Create account"
+  "createAccount": "Create account",
+  "registerPromptMessage": "Register to keep your progress across devices!",
+  "registerPromptDismiss": "Maybe later"
 }

@@ -94,6 +94,28 @@ test('dragging syllables into the correct order awards XP and shows a success bu
   expect(progressRound.getRequest()).toMatchObject({ wordId: KALA.id, correct: true })
 })
 
+test('shows a dismissable register prompt for anonymous users after completing a round', async ({
+  page,
+}) => {
+  await mockWordsApi(page, [KALA])
+  await mockProgressRoundApi(page)
+  await page.goto('/game')
+
+  await expect(page.getByRole('group', { name: 'kala' })).toBeVisible()
+
+  await dragOnto(page, chip(page, 'ka'), slot(page, 0))
+  await dragOnto(page, chip(page, 'la'), slot(page, 1))
+  await page.getByRole('button', { name: 'Tarkista' }).click()
+
+  await expect(page.getByText('Oikein!')).toBeVisible()
+
+  const prompt = page.getByText('Rekisteröidy, niin edistymisesi säilyy kaikilla laitteilla!')
+  await expect(prompt).toBeVisible()
+
+  await page.getByRole('button', { name: 'Ehkä myöhemmin' }).click()
+  await expect(prompt).not.toBeVisible()
+})
+
 test('submitting syllables in the wrong order shakes the slots and awards no XP', async ({
   page,
 }) => {
