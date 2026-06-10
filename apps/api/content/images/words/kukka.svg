@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="kukka">
+  <!-- stem -->
+  <path d="M 100 105 C 92 135 110 155 100 188" fill="none" stroke="#3bb87f" stroke-width="8" stroke-linecap="round"/>
+  <!-- leaf -->
+  <path d="M 99 150 C 68 144 52 162 58 178 C 86 180 102 166 99 150 Z" fill="#3bb87f"/>
+  <!-- petals -->
+  <g fill="#ff8c42" stroke="#1c1640" stroke-width="2">
+    <ellipse cx="100" cy="48" rx="15" ry="27"/>
+    <ellipse cx="100" cy="48" rx="15" ry="27" transform="rotate(60 100 85)"/>
+    <ellipse cx="100" cy="48" rx="15" ry="27" transform="rotate(120 100 85)"/>
+    <ellipse cx="100" cy="48" rx="15" ry="27" transform="rotate(180 100 85)"/>
+    <ellipse cx="100" cy="48" rx="15" ry="27" transform="rotate(240 100 85)"/>
+    <ellipse cx="100" cy="48" rx="15" ry="27" transform="rotate(300 100 85)"/>
+  </g>
+  <!-- center -->
+  <circle cx="100" cy="85" r="22" fill="#ffd166" stroke="#1c1640" stroke-width="3"/>
+  <!-- center texture -->
+  <circle cx="92" cy="80" r="3" fill="#1c1640" opacity="0.4"/>
+  <circle cx="108" cy="80" r="3" fill="#1c1640" opacity="0.4"/>
+  <circle cx="100" cy="92" r="3" fill="#1c1640" opacity="0.4"/>
+  <circle cx="88" cy="92" r="3" fill="#1c1640" opacity="0.4"/>
+  <circle cx="112" cy="92" r="3" fill="#1c1640" opacity="0.4"/>
+</svg>

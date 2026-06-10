@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="pallo">
+  <!-- quadrant: bottom-right -->
+  <path d="M 100 100 L 170 100 A 70 70 0 0 1 100 170 Z" fill="#ff8c42"/>
+  <!-- quadrant: bottom-left -->
+  <path d="M 100 100 L 100 170 A 70 70 0 0 1 30 100 Z" fill="#ffd166"/>
+  <!-- quadrant: top-left -->
+  <path d="M 100 100 L 30 100 A 70 70 0 0 1 100 30 Z" fill="#3bb87f"/>
+  <!-- quadrant: top-right -->
+  <path d="M 100 100 L 100 30 A 70 70 0 0 1 170 100 Z" fill="#5b6cf5"/>
+  <!-- outline -->
+  <circle cx="100" cy="100" r="70" fill="none" stroke="#1c1640" stroke-width="4"/>
+  <!-- highlight -->
+  <ellipse cx="78" cy="72" rx="18" ry="11" fill="#ffffff" opacity="0.55"/>
+</svg>
