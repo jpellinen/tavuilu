@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="kala">
+  <!-- tail -->
+  <path d="M 60 100 L 22 65 L 30 100 L 22 135 Z" fill="#ff8c42"/>
+  <!-- top fin -->
+  <path d="M 105 65 L 126 30 L 146 68 Z" fill="#ff8c42"/>
+  <!-- bottom fin -->
+  <path d="M 105 132 L 126 170 L 146 130 Z" fill="#ff8c42"/>
+  <!-- body -->
+  <ellipse cx="115" cy="100" rx="58" ry="40" fill="#5b6cf5"/>
+  <!-- scale detail -->
+  <path d="M 80 85 A 18 18 0 0 1 80 115" fill="none" stroke="#e8ebff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 100 80 A 22 22 0 0 1 100 120" fill="none" stroke="#e8ebff" stroke-width="4" stroke-linecap="round"/>
+  <!-- eye -->
+  <circle cx="148" cy="90" r="11" fill="#ffffff"/>
+  <circle cx="151" cy="90" r="5.5" fill="#1c1640"/>
+  <!-- mouth -->
+  <path d="M 168 104 Q 176 110 168 116" fill="none" stroke="#1c1640" stroke-width="3" stroke-linecap="round"/>
+</svg>

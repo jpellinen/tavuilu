@@ -13,13 +13,13 @@ apps/api/content/
   fi.json          ← Finnish word list
   images/
     words/
-      kala.png
-      auto.png
-      koira.png
+      kala.svg
+      auto.svg
+      koira.svg
       …
 ```
 
-One JSON file per language, named by ISO 639-1 code. Images are in `images/words/`, named `{imageRef}.png`. All filenames lowercase.
+One JSON file per language, named by ISO 639-1 code. Images are in `images/words/`, named `{imageRef}.svg`. All filenames lowercase.
 
 ---
 
@@ -89,7 +89,7 @@ The frontend resolves this to a full URL using `getImageUrl(imageRef)`:
 // src/utils/getImageUrl.ts
 export function getImageUrl(imageRef: string): string {
   const base = import.meta.env.VITE_IMAGE_BASE_URL ?? 'http://localhost:3000';
-  return `${base}/images/words/${imageRef}.png`;
+  return `${base}/images/words/${imageRef}.svg`;
 }
 ```
 
@@ -105,11 +105,11 @@ No code changes, no JSON changes — just upload images to the CDN and flip the 
 
 ---
 
-## Placeholder Images
+## Word Images
 
-In development and Phase 2, placeholder images are used. A placeholder is a 280×280px PNG with a simple label or colored background. The content validator does not check that image files exist — missing images show the `<img>` element's broken-image state.
+Word images are flat, hand-authored SVG illustrations (`viewBox="0 0 200 200"`), styled per `docs/design/visual-style.md` (palette colors, no gradients, no heavy shadows). The content validator does not check that image files exist — missing images show the `<img>` element's broken-image state.
 
-Placeholder generation: not scripted. Create manually or generate with any image tool. Filename must match `imageRef` exactly.
+SVG is well suited here: tiny file size, crisp at any size, and easy to generate or hand-edit as code.
 
 ---
 
@@ -130,7 +130,7 @@ This means content errors are caught in CI (the API test suite starts the server
 ## Adding Words
 
 1. Add the word object to `apps/api/content/fi.json`.
-2. Add the image as `apps/api/content/images/words/{imageRef}.png`.
+2. Add the image as `apps/api/content/images/words/{imageRef}.svg`.
 3. Run `pnpm --filter api type-check` — Zod validation catches schema errors.
 4. Test locally: `GET /api/words?lang=fi&difficulty=1` should return the new word.
 

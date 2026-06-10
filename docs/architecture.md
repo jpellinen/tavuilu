@@ -144,7 +144,7 @@ tavuilu/
 | Variable | Default | Purpose |
 |---|---|---|
 | `VITE_API_URL` | `http://localhost:3000` | Base URL for Fastify API calls |
-| `VITE_IMAGE_BASE_URL` | `http://localhost:3000` | Resolved by `getImageUrl(ref)` → `{base}/images/words/{ref}.png` |
+| `VITE_IMAGE_BASE_URL` | `http://localhost:3000` | Resolved by `getImageUrl(ref)` → `{base}/images/words/{ref}.svg` |
 
 ### `apps/api`
 
@@ -206,7 +206,7 @@ Switching language updates `settingsStore.language` (persisted to `localStorage`
 2. Game route mounts → useWords(lang, difficulty) fetches GET /api/words?lang=fi&difficulty=1
 3. API reads fi.json (parsed+validated at startup) → returns filtered JSON array
 4. Frontend picks a random word from the list
-5. Word image: <img src={getImageUrl(word.imageRef)} />  →  GET /images/words/kala.png
+5. Word image: <img src={getImageUrl(word.imageRef)} />  →  GET /images/words/kala.svg
 6. Player completes round → progressStore.addXP(amount) → localStorage updated
 7. (If registered) progressStore calls PATCH /api/progress → Postgres updated
 ```
