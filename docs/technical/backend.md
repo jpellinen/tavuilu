@@ -95,15 +95,19 @@ Response `401` (no valid session):
 
 ### `POST /api/auth/sign-up/email`
 
-Handled by `better-auth`. When called with an active anonymous session, links the email + password to the existing `User` row (`isAnonymous` → `false`). The user ID does not change — no data migration needed.
+Handled by `better-auth`. Always creates a **new** `User` row and a new session — it does not convert the existing anonymous row in place.
 
-Accepts `{ email, password }`. Returns `200` with session on success.
+When called with an active anonymous session, the anonymous plugin's `onLinkAccount` hook (configured in `apps/api/src/auth.ts`) reassigns the anonymous user's `Progress` row to the new user's ID before `better-auth` deletes the old anonymous `User` row. The result: the new account starts with the anonymous player's XP/level/completed words intact, under a new user ID.
+
+Accepts `{ name, email, password }`. Returns `200` with the new user + session on success.
 
 ---
 
 ### `POST /api/auth/sign-in/email`
 
 Handled by `better-auth`. Accepts `{ email, password }`. Returns `200` with session on success, `401` on bad credentials.
+
+When called with an active anonymous session, the same `onLinkAccount` hook fires (the anonymous plugin links any session that follows an anonymous one). If the target account already has a `Progress` row, the hook leaves it untouched — the existing account's progress is canonical, and the anonymous user (and its `Progress` row) is deleted by `better-auth`. The anonymous session's progress is **not** merged or preserved in this case.
 
 ---
 

@@ -181,7 +181,7 @@ Each phase begins by writing the relevant `docs/` files before implementation st
 2. `better-auth` + Prisma Postgres schema for users and progress; anonymous accounts created on first visit, server is the source of truth for progress from round one
 3. Remove `progressStore`'s localStorage persistence — store becomes a pure in-memory cache hydrated from `GET /api/progress`
 4. Soft prompt after completed rounds: "Create an account to save your progress!"
-5. Verify guest-to-account upgrade flow: registering links credentials to the existing anonymous user (same ID, same `Progress` row) — no merge step, no progress lost
+5. Verify guest-to-account upgrade flow: registering creates a new `User` row, but `onLinkAccount` reassigns the anonymous user's `Progress` row to it before the old anonymous user is deleted — same `Progress` row, no merge step, no progress lost
 
 ### Phase 4 — Polish + Expansion
 

@@ -67,6 +67,23 @@ jobs:
     defaults:
       run:
         working-directory: apps/api
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: tavuilu
+          POSTGRES_PASSWORD: tavuilu
+          POSTGRES_DB: tavuilu
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U tavuilu"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://tavuilu:tavuilu@localhost:5432/tavuilu
+      BETTER_AUTH_SECRET: ci-test-secret-do-not-use-in-production
     steps:
       - uses: actions/checkout@v4
 
@@ -81,6 +98,8 @@ jobs:
           cache-dependency-path: apps/api/pnpm-lock.yaml
 
       - run: pnpm install --frozen-lockfile
+
+      - run: pnpm prisma db push
 
       - run: pnpm lint
 

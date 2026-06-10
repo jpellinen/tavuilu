@@ -91,13 +91,16 @@ Do not store the token or user ID anywhere other than what `better-auth` manages
 
 ## Anonymous-to-Registered Upgrade
 
-When an anonymous player registers, their progress is already in Postgres under their anonymous user ID. `better-auth`'s anonymous plugin handles the account link — it attaches the email + password credentials to the existing `User` row and sets `isAnonymous` to `false`. No data migration, no merge.
+`better-auth`'s `sign-up/email` endpoint always creates a **new** `User` row — it does not turn the existing anonymous row into a registered one. The anonymous plugin's `onLinkAccount` hook is where the upgrade happens: the API moves the anonymous user's `Progress` row onto the new account, then `better-auth` deletes the now-empty anonymous user.
 
 Flow:
 1. Anonymous player taps "Create account" and submits email + password
-2. `better-auth` links the credentials to the current anonymous `User` row
-3. The session cookie remains valid — the user ID does not change
-4. `useAuth()` now returns `isAnonymous: false`
+2. `better-auth` creates a new registered `User` row and a new session for it
+3. `onLinkAccount` (configured in `apps/api/src/auth.ts`) reassigns the anonymous user's `Progress.userId` to the new user's ID — same row, same `xp`/`level`/`completedWordIds`, no merge
+4. `better-auth` deletes the old anonymous `User` row (and its now-empty session)
+5. The response sets a new session cookie for the registered user; `useAuth()` now returns the new user ID and `isAnonymous: false`
+
+The user ID changes across this upgrade, but the frontend never stores the ID itself — `useAuth()` and `progressStore` are both rehydrated from the new session, so this is transparent to the player.
 
 ---
 
@@ -109,6 +112,12 @@ When a registered player logs in on a new device:
 3. `progressStore` is populated from the server response
 
 No merge is needed. The server holds the canonical state.
+
+### Logging in from an active anonymous session
+
+If the player was already in an anonymous session on this device (e.g. they played a few rounds as a guest, then chose "Log in" and signed into their existing account), the same `onLinkAccount` hook fires. Because the target account already has its own `Progress` row, the hook does **not** touch it — the existing account's progress is canonical, same as the new-device case above. The anonymous session's progress (anything played as a guest immediately before logging in) is discarded along with the anonymous user.
+
+This is intentional: it matches the "no merge, server is canonical" rule rather than adding merge logic for an edge case. If this surprises players in practice (e.g. losing a round just played as a guest), revisit with a merge strategy.
 
 ---
 
