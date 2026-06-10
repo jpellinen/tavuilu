@@ -31,6 +31,7 @@ export interface Locale {
   slotLabel: string;
   login: string;
   register: string;
+  name: string;
   email: string;
   password: string;
   logOut: string;
