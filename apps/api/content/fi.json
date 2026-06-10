@@ -12,7 +12,7 @@
     "word": "auto",
     "syllables": ["au", "to"],
     "difficulty": 1,
-    "imageRef": "auto",
+    "imageRef": "car",
     "tags": ["vehicles"]
   },
   {
@@ -20,7 +20,7 @@
     "word": "koira",
     "syllables": ["koi", "ra"],
     "difficulty": 1,
-    "imageRef": "koira",
+    "imageRef": "dog",
     "tags": ["animals", "pets"]
   },
   {
