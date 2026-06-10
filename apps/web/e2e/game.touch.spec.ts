@@ -22,6 +22,22 @@ async function mockWordsApi(page: Page, words: Word[]) {
   )
 }
 
+interface ProgressRoundRequest {
+  wordId: string
+  durationMs: number
+  correct: boolean
+  firstAttempt: boolean
+}
+
+async function mockProgressRoundApi(page: Page) {
+  let request: ProgressRoundRequest | null = null
+  await page.route('**/api/progress/round', async (route) => {
+    request = route.request().postDataJSON() as ProgressRoundRequest
+    await route.fulfill({ json: { xp: 10, level: 1, completedWordIds: [] } })
+  })
+  return { getRequest: () => request }
+}
+
 /**
  * Simulates a touch drag via CDP Input.dispatchTouchEvent so Chrome synthesises
  * real PointerEvents with pointerType:'touch'.  Synthetic JS dispatchEvent
@@ -101,6 +117,7 @@ test.beforeEach(async ({ page }) => {
 
 test('touch drag correct order awards XP and shows success burst', async ({ page }) => {
   await mockWordsApi(page, [KALA])
+  const progressRound = await mockProgressRoundApi(page)
   await page.goto('/game')
 
   await expect(page.getByRole('group', { name: 'kala' })).toBeVisible()
@@ -115,16 +132,13 @@ test('touch drag correct order awards XP and shows success burst', async ({ page
   await expect(page.getByText('Oikein!')).toBeVisible()
   await expect(page.getByTestId('confetti-burst')).toBeVisible()
 
-  await expect(async () => {
-    const raw = await page.evaluate(() => window.localStorage.getItem('tavuilu-progress'))
-    expect(raw).not.toBeNull()
-    const progress = JSON.parse(raw as string) as { state: { xp: number } }
-    expect(progress.state.xp).toBeGreaterThan(0)
-  }).toPass()
+  await expect(() => expect(progressRound.getRequest()).not.toBeNull()).toPass()
+  expect(progressRound.getRequest()).toMatchObject({ wordId: KALA.id, correct: true })
 })
 
 test('touch drag wrong order shakes and awards no XP', async ({ page }) => {
   await mockWordsApi(page, [KALA])
+  const progressRound = await mockProgressRoundApi(page)
   await page.goto('/game')
 
   await expect(page.getByRole('group', { name: 'kala' })).toBeVisible()
@@ -140,6 +154,5 @@ test('touch drag wrong order shakes and awards no XP', async ({ page }) => {
   await expect(page.getByText('Yritä uudelleen')).toBeVisible()
   await expect(page.getByText('Oikein!')).not.toBeVisible()
 
-  const raw = await page.evaluate(() => window.localStorage.getItem('tavuilu-progress'))
-  expect(raw).toBeNull()
+  expect(progressRound.getRequest()).toBeNull()
 })

@@ -22,6 +22,22 @@ async function mockWordsApi(page: Page, words: Word[]) {
   )
 }
 
+interface ProgressRoundRequest {
+  wordId: string
+  durationMs: number
+  correct: boolean
+  firstAttempt: boolean
+}
+
+async function mockProgressRoundApi(page: Page) {
+  let request: ProgressRoundRequest | null = null
+  await page.route('**/api/progress/round', async (route) => {
+    request = route.request().postDataJSON() as ProgressRoundRequest
+    await route.fulfill({ json: { xp: 10, level: 1, completedWordIds: [] } })
+  })
+  return { getRequest: () => request }
+}
+
 async function dragOnto(page: Page, source: Locator, target: Locator) {
   const sourceBox = await source.boundingBox()
   const targetBox = await target.boundingBox()
@@ -59,6 +75,7 @@ test('dragging syllables into the correct order awards XP and shows a success bu
   page,
 }) => {
   await mockWordsApi(page, [KALA])
+  const progressRound = await mockProgressRoundApi(page)
   await page.goto('/game')
 
   await expect(page.getByRole('group', { name: 'kala' })).toBeVisible()
@@ -73,18 +90,15 @@ test('dragging syllables into the correct order awards XP and shows a success bu
   await expect(page.getByText('Oikein!')).toBeVisible()
   await expect(page.getByTestId('confetti-burst')).toBeVisible()
 
-  await expect(async () => {
-    const raw = await page.evaluate(() => window.localStorage.getItem('tavuilu-progress'))
-    expect(raw).not.toBeNull()
-    const progress = JSON.parse(raw as string) as { state: { xp: number } }
-    expect(progress.state.xp).toBeGreaterThan(0)
-  }).toPass()
+  await expect(() => expect(progressRound.getRequest()).not.toBeNull()).toPass()
+  expect(progressRound.getRequest()).toMatchObject({ wordId: KALA.id, correct: true })
 })
 
 test('submitting syllables in the wrong order shakes the slots and awards no XP', async ({
   page,
 }) => {
   await mockWordsApi(page, [KALA])
+  const progressRound = await mockProgressRoundApi(page)
   await page.goto('/game')
 
   await expect(page.getByRole('group', { name: 'kala' })).toBeVisible()
@@ -100,6 +114,5 @@ test('submitting syllables in the wrong order shakes the slots and awards no XP'
   await expect(page.getByText('Yritä uudelleen')).toBeVisible()
   await expect(page.getByText('Oikein!')).not.toBeVisible()
 
-  const raw = await page.evaluate(() => window.localStorage.getItem('tavuilu-progress'))
-  expect(raw).toBeNull()
+  expect(progressRound.getRequest()).toBeNull()
 })
