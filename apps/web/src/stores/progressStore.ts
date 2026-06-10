@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
 
 interface ProgressState {
   xp: number
@@ -15,26 +14,21 @@ function levelFromXP(xp: number): number {
   return Math.floor(xp / 100) + 1
 }
 
-export const useProgressStore = create<ProgressState>()(
-  persist(
-    (set) => ({
-      xp: 0,
-      level: 1,
-      completedWordIds: [],
-      addXP: (amount) =>
-        set((s) => {
-          const xp = s.xp + amount
-          return { xp, level: levelFromXP(xp) }
-        }),
-      markWordCompleted: (id) =>
-        set((s) => ({
-          completedWordIds: s.completedWordIds.includes(id)
-            ? s.completedWordIds
-            : [...s.completedWordIds, id],
-        })),
-      setProgress: (data) => set(data),
-      reset: () => set({ xp: 0, level: 1, completedWordIds: [] }),
+export const useProgressStore = create<ProgressState>()((set) => ({
+  xp: 0,
+  level: 1,
+  completedWordIds: [],
+  addXP: (amount) =>
+    set((s) => {
+      const xp = s.xp + amount
+      return { xp, level: levelFromXP(xp) }
     }),
-    { name: 'tavuilu-progress' }
-  )
-)
+  markWordCompleted: (id) =>
+    set((s) => ({
+      completedWordIds: s.completedWordIds.includes(id)
+        ? s.completedWordIds
+        : [...s.completedWordIds, id],
+    })),
+  setProgress: (data) => set(data),
+  reset: () => set({ xp: 0, level: 1, completedWordIds: [] }),
+}))
