@@ -47,6 +47,9 @@
   --space-16: 4rem;
   --space-20: 5rem;
 
+  /* Borders & outlines */
+  --outline-width-slot: 2px;
+
   /* Border radii */
   --radius-sm: 8px;
   --radius-md: 16px;

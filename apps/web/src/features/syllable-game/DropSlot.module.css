@@ -15,14 +15,14 @@
 
 .empty {
   background-color: var(--color-bg);
-  outline: 2px dashed var(--color-border);
-  outline-offset: -2px;
+  outline: var(--outline-width-slot) dashed var(--color-border);
+  outline-offset: calc(-1 * var(--outline-width-slot));
 }
 
 .filled {
   background-color: var(--color-bg);
-  outline: 2px dashed var(--color-border);
-  outline-offset: -2px;
+  outline: var(--outline-width-slot) dashed var(--color-border);
+  outline-offset: calc(-1 * var(--outline-width-slot));
   cursor: pointer;
 }
 

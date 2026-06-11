@@ -17,7 +17,6 @@ export function WordDisplay({ word, celebrate = false }: WordDisplayProps) {
         </div>
         {celebrate && <Confetti key={word.id} />}
       </div>
-      <p className={styles.wordText}>{word.word}</p>
     </div>
   )
 }
