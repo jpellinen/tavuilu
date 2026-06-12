@@ -15,7 +15,7 @@ export type RoundPhase = 'active' | 'correct' | 'incorrect'
 
 export const SLOT_DROPPABLE_PREFIX = 'slot-'
 
-const NEXT_WORD_DELAY_MS = 1500
+const NEXT_WORD_DELAY_MS = 3000
 
 function createChips(word: Word): RoundChip[] {
   return shuffle(word.syllables.map((syllable, i) => ({ id: `${word.id}-${i}`, syllable })))

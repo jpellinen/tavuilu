@@ -9,26 +9,33 @@ const PARTICLE_COLORS = [
   'var(--color-warning)',
 ]
 
-const PARTICLE_COUNT = 18
+const PARTICLE_COUNT = 80
 
 interface Particle {
   color: string
-  x: number
-  y: number
-  rotate: number
+  left: number
+  width: number
+  height: number
+  rotateStart: number
+  rotateEnd: number
+  drift: number
+  duration: number
   delay: number
 }
 
 function createParticles(): Particle[] {
   return Array.from({ length: PARTICLE_COUNT }, (_, i) => {
-    const angle = (i / PARTICLE_COUNT) * Math.PI * 2 + Math.random() * 0.4
-    const distance = 70 + Math.random() * 50
+    const left = (i / PARTICLE_COUNT) * 100 + (Math.random() * 4 - 2)
     return {
       color: PARTICLE_COLORS[i % PARTICLE_COLORS.length],
-      x: Math.cos(angle) * distance,
-      y: Math.sin(angle) * distance,
-      rotate: Math.random() * 360 - 180,
-      delay: Math.random() * 0.1,
+      left,
+      width: 12 + Math.random() * 10,
+      height: 18 + Math.random() * 14,
+      rotateStart: Math.random() * 360,
+      rotateEnd: Math.random() * 360 + 360,
+      drift: Math.random() * 140 - 70,
+      duration: 1.6 + Math.random() * 1,
+      delay: Math.random() * 0.8,
     }
   })
 }
@@ -42,16 +49,20 @@ export function Confetti() {
         <motion.span
           key={i}
           className={styles.particle}
-          style={{ backgroundColor: particle.color }}
-          initial={{ x: 0, y: 0, opacity: 1, rotate: 0, scale: 1 }}
-          animate={{
-            x: particle.x,
-            y: particle.y,
-            opacity: 0,
-            rotate: particle.rotate,
-            scale: 0.6,
+          style={{
+            backgroundColor: particle.color,
+            left: `${particle.left}%`,
+            width: particle.width,
+            height: particle.height,
           }}
-          transition={{ duration: 0.8, delay: particle.delay, ease: 'easeOut' }}
+          initial={{ y: '-15vh', x: 0, opacity: 1, rotate: particle.rotateStart }}
+          animate={{
+            y: '115vh',
+            x: particle.drift,
+            opacity: [1, 1, 0],
+            rotate: particle.rotateEnd,
+          }}
+          transition={{ duration: particle.duration, delay: particle.delay, ease: 'linear' }}
         />
       ))}
     </div>

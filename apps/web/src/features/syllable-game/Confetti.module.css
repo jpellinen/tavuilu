@@ -1,16 +1,13 @@
 .burst {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  overflow: visible;
+  overflow: hidden;
   pointer-events: none;
+  z-index: 1000;
 }
 
 .particle {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  margin: -5px 0 0 -5px;
-  border-radius: var(--radius-sm);
+  top: 0;
+  border-radius: 2px;
 }
