@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  flex: 1;
   gap: var(--space-5);
   padding: var(--space-5) var(--space-2);
 }
@@ -33,11 +35,17 @@
   }
 }
 
-.feedbackCorrect,
-.feedbackIncorrect {
+.feedback {
+  min-height: calc(var(--font-size-lg) * 1.5);
   font-size: var(--font-size-lg);
   font-weight: 700;
   text-align: center;
+  visibility: hidden;
+}
+
+.feedbackCorrect,
+.feedbackIncorrect {
+  visibility: visible;
 }
 
 .feedbackCorrect {

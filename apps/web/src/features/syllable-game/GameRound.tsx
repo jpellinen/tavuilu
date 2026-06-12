@@ -85,8 +85,17 @@ export function GameRound({ word, onRoundComplete }: GameRoundProps) {
       >
         {t.checkAnswer}
       </Button>
-      {phase === 'correct' && <p className={styles.feedbackCorrect}>{t.correct}</p>}
-      {phase === 'incorrect' && <p className={styles.feedbackIncorrect}>{t.tryAgain}</p>}
+      <p
+        className={`${styles.feedback} ${
+          phase === 'correct'
+            ? styles.feedbackCorrect
+            : phase === 'incorrect'
+              ? styles.feedbackIncorrect
+              : ''
+        }`}
+      >
+        {phase === 'correct' ? t.correct : phase === 'incorrect' ? t.tryAgain : ' '}
+      </p>
     </div>
   )
 }

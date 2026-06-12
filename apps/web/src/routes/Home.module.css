@@ -6,7 +6,6 @@
   flex: 1;
   gap: var(--space-4);
   text-align: center;
-  padding-top: var(--space-8);
 }
 
 @media (min-width: 768px) {
