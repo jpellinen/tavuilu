@@ -55,3 +55,72 @@
 .feedbackIncorrect {
   color: var(--color-error);
 }
+
+.progress {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  align-items: center;
+}
+
+.dot,
+.dotDone,
+.dotActive {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.dotDone {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.dotActive {
+  background-color: var(--color-primary);
+  transform: scale(1.25);
+}
+
+@media (min-width: 768px) {
+  .dot,
+  .dotDone,
+  .dotActive {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: var(--space-6);
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+}
+
+.summaryHeading {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.summaryXP {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.summaryXPLabel {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  margin: 0;
+}

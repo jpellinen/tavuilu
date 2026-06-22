@@ -27,5 +27,9 @@
   "noAccountYet": "No account yet?",
   "createAccount": "Create account",
   "registerPromptMessage": "Register to keep your progress across devices!",
-  "registerPromptDismiss": "Maybe later"
+  "registerPromptDismiss": "Maybe later",
+  "roundComplete": "Well done!",
+  "roundXPEarned": "XP earned",
+  "nextRound": "Next round",
+  "roundProgress": "Word"
 }

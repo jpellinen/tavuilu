@@ -15,7 +15,7 @@ export type RoundPhase = 'active' | 'correct' | 'incorrect'
 
 export const SLOT_DROPPABLE_PREFIX = 'slot-'
 
-const NEXT_WORD_DELAY_MS = 3000
+const NEXT_WORD_DELAY_MS = 1000
 
 function createChips(word: Word): RoundChip[] {
   return shuffle(word.syllables.map((syllable, i) => ({ id: `${word.id}-${i}`, syllable })))
@@ -25,7 +25,7 @@ function emptySlots(word: Word): (string | null)[] {
   return Array<string | null>(word.syllables.length).fill(null)
 }
 
-export function useGameRound(word: Word, onRoundComplete: () => void) {
+export function useGameRound(word: Word, onRoundComplete: (earnedXP: number) => void) {
   const chips = useMemo(() => createChips(word), [word])
   const [slotChipIds, setSlotChipIds] = useState<(string | null)[]>(() => emptySlots(word))
   const [phase, setPhase] = useState<RoundPhase>('active')
@@ -35,6 +35,7 @@ export function useGameRound(word: Word, onRoundComplete: () => void) {
   const setProgress = useProgressStore((s) => s.setProgress)
   const startedAtRef = useRef(0)
   const hadErrorRef = useRef(false)
+  const earnedXPRef = useRef(0)
 
   if (roundWordId !== word.id) {
     setRoundWordId(word.id)
@@ -49,7 +50,7 @@ export function useGameRound(word: Word, onRoundComplete: () => void) {
 
   useEffect(() => {
     if (phase !== 'correct') return undefined
-    const timeout = setTimeout(onRoundComplete, NEXT_WORD_DELAY_MS)
+    const timeout = setTimeout(() => onRoundComplete(earnedXPRef.current), NEXT_WORD_DELAY_MS)
     return () => clearTimeout(timeout)
   }, [phase, onRoundComplete])
 
@@ -113,7 +114,9 @@ export function useGameRound(word: Word, onRoundComplete: () => void) {
     if (validateAnswer(slots, word.syllables)) {
       const durationMs = Date.now() - startedAtRef.current
       const firstAttempt = !hadErrorRef.current
-      addXP(computeXP(word.difficulty, durationMs, firstAttempt))
+      const xp = computeXP(word.difficulty, durationMs, firstAttempt)
+      earnedXPRef.current = xp
+      addXP(xp)
       markWordCompleted(word.id)
       setPhase('correct')
       fetch('/api/progress/round', {

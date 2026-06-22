@@ -43,4 +43,8 @@ export interface Locale {
   createAccount: string;
   registerPromptMessage: string;
   registerPromptDismiss: string;
+  roundComplete: string;
+  roundXPEarned: string;
+  nextRound: string;
+  roundProgress: string;
 }

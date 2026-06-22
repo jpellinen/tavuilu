@@ -7,8 +7,11 @@ import { useLocale } from '../../hooks/useLocale'
 import { useAuth } from '../auth/useAuth'
 import { RegisterPrompt } from '../auth/RegisterPrompt'
 import { GameRound } from './GameRound'
+import { RoundSummary } from './RoundSummary'
 import { selectNextWord } from './selectNextWord'
 import styles from './game.module.css'
+
+const ROUND_SIZE = 5
 
 export function GamePage() {
   const t = useLocale()
@@ -23,19 +26,43 @@ export function GamePage() {
   const [showRegisterPrompt, setShowRegisterPrompt] = useState(false)
   const [registerPromptDismissed, setRegisterPromptDismissed] = useState(false)
 
+  const [wordsCompletedInRound, setWordsCompletedInRound] = useState(0)
+  const [roundXP, setRoundXP] = useState(0)
+  const [showSummary, setShowSummary] = useState(false)
+
+  const effectiveRoundSize = Math.min(ROUND_SIZE, words.length)
+
   function advance(played: string[]) {
     const next = selectNextWord(words, completedWordIds, played)
     setCurrentWord(next)
     setSessionPlayed(next ? [...played, next.id] : played)
   }
 
-  function handleRoundComplete() {
-    setShowRegisterPrompt(true)
+  function handleWordComplete(earnedXP: number) {
+    const newCompleted = wordsCompletedInRound + 1
+    setWordsCompletedInRound(newCompleted)
+    setRoundXP((prev) => prev + earnedXP)
+
+    if (newCompleted >= effectiveRoundSize) {
+      setShowSummary(true)
+      setShowRegisterPrompt(true)
+    } else {
+      advance(sessionPlayed)
+    }
+  }
+
+  function handleNextRound() {
+    setWordsCompletedInRound(0)
+    setRoundXP(0)
+    setShowSummary(false)
     advance(sessionPlayed)
   }
 
   if (sessionWords !== words) {
     setSessionWords(words)
+    setWordsCompletedInRound(0)
+    setRoundXP(0)
+    setShowSummary(false)
     if (currentWord && words.some((word) => word.id === currentWord.id)) {
       setSessionPlayed([currentWord.id])
     } else {
@@ -51,9 +78,25 @@ export function GamePage() {
     return <div className={styles.status}>{t.errorLoadingWords}</div>
   }
 
+  if (showSummary) {
+    return (
+      <>
+        <RoundSummary roundXP={roundXP} onNextRound={handleNextRound} />
+        {isAnonymous && showRegisterPrompt && !registerPromptDismissed && (
+          <RegisterPrompt onDismiss={() => setRegisterPromptDismissed(true)} />
+        )}
+      </>
+    )
+  }
+
   return (
     <>
-      <GameRound word={currentWord} onRoundComplete={handleRoundComplete} />
+      <GameRound
+        word={currentWord}
+        wordsCompleted={wordsCompletedInRound}
+        roundSize={effectiveRoundSize}
+        onRoundComplete={handleWordComplete}
+      />
       {isAnonymous && showRegisterPrompt && !registerPromptDismissed && (
         <RegisterPrompt onDismiss={() => setRegisterPromptDismissed(true)} />
       )}

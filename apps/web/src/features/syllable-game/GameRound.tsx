@@ -21,10 +21,12 @@ import styles from './game.module.css'
 
 interface GameRoundProps {
   word: Word
-  onRoundComplete: () => void
+  wordsCompleted: number
+  roundSize: number
+  onRoundComplete: (earnedXP: number) => void
 }
 
-export function GameRound({ word, onRoundComplete }: GameRoundProps) {
+export function GameRound({ word, wordsCompleted, roundSize, onRoundComplete }: GameRoundProps) {
   const t = useLocale()
   const {
     chipById,
@@ -58,7 +60,27 @@ export function GameRound({ word, onRoundComplete }: GameRoundProps) {
 
   return (
     <div className={styles.page}>
-      <WordDisplay word={word} celebrate={phase === 'correct'} />
+      <div
+        className={styles.progress}
+        role="progressbar"
+        aria-valuenow={wordsCompleted + 1}
+        aria-valuemax={roundSize}
+        aria-label={`${t.roundProgress} ${wordsCompleted + 1}/${roundSize}`}
+      >
+        {Array.from({ length: roundSize }, (_, i) => (
+          <span
+            key={i}
+            className={
+              i < wordsCompleted
+                ? styles.dotDone
+                : i === wordsCompleted
+                  ? styles.dotActive
+                  : styles.dot
+            }
+          />
+        ))}
+      </div>
+      <WordDisplay word={word} />
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}

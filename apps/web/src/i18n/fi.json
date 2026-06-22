@@ -27,5 +27,9 @@
   "noAccountYet": "Ei vielä tiliä?",
   "createAccount": "Luo tili",
   "registerPromptMessage": "Rekisteröidy, niin edistymisesi säilyy kaikilla laitteilla!",
-  "registerPromptDismiss": "Ehkä myöhemmin"
+  "registerPromptDismiss": "Ehkä myöhemmin",
+  "roundComplete": "Hienoa!",
+  "roundXPEarned": "XP tienattuna",
+  "nextRound": "Seuraava kierros",
+  "roundProgress": "Sana"
 }
