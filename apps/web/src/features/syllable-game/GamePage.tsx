@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import type { Word } from '@tavuilu/shared'
 import { useSettingsStore } from '../../stores/settingsStore'
 import { useProgressStore } from '../../stores/progressStore'
@@ -22,7 +22,7 @@ export function GamePage() {
   const { isAnonymous } = useAuth()
   const { words, loading, error } = useWords(language, difficulty)
   const [sessionWords, setSessionWords] = useState(words)
-  const sessionPlayedRef = useRef<string[]>([])
+  const [sessionPlayed, setSessionPlayed] = useState<string[]>([])
   const [roundWords, setRoundWords] = useState<Word[]>([])
   const [roundIndex, setRoundIndex] = useState(0)
   const [showRegisterPrompt, setShowRegisterPrompt] = useState(false)
@@ -35,7 +35,7 @@ export function GamePage() {
     const effectiveSize = Math.min(ROUND_SIZE, words.length)
     const selected = selectRoundWords(words, completedWordIds, played, effectiveSize)
     preloadImages(selected)
-    sessionPlayedRef.current = [...played, ...selected.map((w) => w.id)]
+    setSessionPlayed([...played, ...selected.map((w) => w.id)])
     setRoundWords(selected)
     setRoundIndex(0)
     setRoundXP(0)
@@ -55,7 +55,7 @@ export function GamePage() {
   }
 
   function handleNextRound() {
-    startRound(sessionPlayedRef.current)
+    startRound(sessionPlayed)
   }
 
   if (sessionWords !== words) {
