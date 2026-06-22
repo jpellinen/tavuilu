@@ -1,8 +1,6 @@
 import Fastify, { type FastifyInstance } from 'fastify'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import type { Word } from '@tavuilu/shared'
 import { loadWords } from './content-loader.js'
 import { auth } from './auth.js'
@@ -19,7 +17,6 @@ export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({ logger: true })
 
   const port = Number(process.env.PORT) || 3000
-  const packageRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 
   await app.register(fastifyCookie)
 
