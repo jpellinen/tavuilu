@@ -1,4 +1,5 @@
 import type { Word } from '@tavuilu/shared'
+import { Fragment } from 'react'
 import { motion } from 'motion/react'
 import { useLocale } from '../../hooks/useLocale'
 import { DropSlot } from './DropSlot'
@@ -31,14 +32,20 @@ export function SyllableSlots({
       transition={{ duration: 0.4, ease: 'easeInOut' }}
     >
       {word.syllables.map((_, i) => (
-        <DropSlot
-          key={i}
-          index={i}
-          chip={slotContents[i] ?? null}
-          ariaLabel={`${t.slotLabel} ${i + 1}`}
-          onRemove={() => onRemoveChip(i)}
-          flashError={error}
-        />
+        <Fragment key={i}>
+          {i > 0 && (
+            <span className={styles.separator} aria-hidden="true">
+              -
+            </span>
+          )}
+          <DropSlot
+            index={i}
+            chip={slotContents[i] ?? null}
+            ariaLabel={`${t.slotLabel} ${i + 1}`}
+            onRemove={() => onRemoveChip(i)}
+            flashError={error}
+          />
+        </Fragment>
       ))}
     </motion.div>
   )
