@@ -62,5 +62,13 @@
     "difficulty": 1,
     "imageRef": "book",
     "tags": ["learning", "school"]
+  },
+  {
+    "id": "lintu",
+    "word": "lintu",
+    "syllables": ["lin", "tu"],
+    "difficulty": 1,
+    "imageRef": "bird",
+    "tags": ["animals"]
   }
 ]
