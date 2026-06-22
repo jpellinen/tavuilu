@@ -24,3 +24,22 @@ export function selectNextWord(
   const candidates = reshuffled.length > 0 ? reshuffled : pool
   return candidates[Math.floor(Math.random() * candidates.length)]
 }
+
+export function selectRoundWords(
+  words: readonly Word[],
+  completedIds: readonly string[],
+  sessionPlayed: readonly string[],
+  count: number
+): Word[] {
+  const round: Word[] = []
+  const played = [...sessionPlayed]
+
+  for (let i = 0; i < count; i++) {
+    const next = selectNextWord(words, completedIds, played)
+    if (!next) break
+    round.push(next)
+    played.push(next.id)
+  }
+
+  return round
+}

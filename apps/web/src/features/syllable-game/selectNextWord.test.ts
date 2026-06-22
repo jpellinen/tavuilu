@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach, vi } from 'vitest'
 import type { Word } from '@tavuilu/shared'
-import { selectNextWord } from './selectNextWord'
+import { selectNextWord, selectRoundWords } from './selectNextWord'
 
 function makeWord(id: string): Word {
   return {
@@ -68,5 +68,51 @@ describe('selectNextWord', () => {
     const result = selectNextWord(words, [], ['1'])
 
     expect(result?.id).toBe('1')
+  })
+})
+
+describe('selectRoundWords', () => {
+  it('returns the requested number of words', () => {
+    const words = [1, 2, 3, 4, 5, 6, 7].map((n) => makeWord(String(n)))
+    vi.spyOn(Math, 'random').mockReturnValue(0)
+
+    const round = selectRoundWords(words, [], [], 5)
+
+    expect(round).toHaveLength(5)
+  })
+
+  it('returns no duplicates within the round', () => {
+    const words = [1, 2, 3, 4, 5, 6, 7].map((n) => makeWord(String(n)))
+    vi.spyOn(Math, 'random').mockReturnValue(0)
+
+    const round = selectRoundWords(words, [], [], 5)
+    const ids = round.map((w) => w.id)
+
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('recycles words when the pool is smaller than count', () => {
+    const words = [makeWord('1'), makeWord('2')]
+    vi.spyOn(Math, 'random').mockReturnValue(0)
+
+    const round = selectRoundWords(words, [], [], 5)
+
+    expect(round).toHaveLength(5)
+    expect(round.every((w) => w.id === '1' || w.id === '2')).toBe(true)
+  })
+
+  it('returns empty array for empty word list', () => {
+    expect(selectRoundWords([], [], [], 5)).toEqual([])
+  })
+
+  it('respects sessionPlayed to avoid recently played words', () => {
+    const words = [1, 2, 3, 4, 5, 6, 7].map((n) => makeWord(String(n)))
+    vi.spyOn(Math, 'random').mockReturnValue(0)
+
+    const round = selectRoundWords(words, [], ['1', '2'], 3)
+    const ids = round.map((w) => w.id)
+
+    expect(ids).not.toContain('1')
+    expect(ids).not.toContain('2')
   })
 })

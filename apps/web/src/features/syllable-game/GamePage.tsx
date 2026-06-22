@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { Word } from '@tavuilu/shared'
 import { useSettingsStore } from '../../stores/settingsStore'
 import { useProgressStore } from '../../stores/progressStore'
 import { useWords } from '../../hooks/useWords'
 import { useLocale } from '../../hooks/useLocale'
 import { useAuth } from '../auth/useAuth'
+import { preloadImages } from '../../utils/preloadImages'
 import { RegisterPrompt } from '../auth/RegisterPrompt'
 import { GameRound } from './GameRound'
 import { RoundSummary } from './RoundSummary'
-import { selectNextWord } from './selectNextWord'
+import { selectRoundWords } from './selectNextWord'
 import styles from './game.module.css'
 
 const ROUND_SIZE = 5
@@ -21,58 +22,57 @@ export function GamePage() {
   const { isAnonymous } = useAuth()
   const { words, loading, error } = useWords(language, difficulty)
   const [sessionWords, setSessionWords] = useState(words)
-  const [sessionPlayed, setSessionPlayed] = useState<string[]>([])
-  const [currentWord, setCurrentWord] = useState<Word | null>(null)
+  const sessionPlayedRef = useRef<string[]>([])
+  const [roundWords, setRoundWords] = useState<Word[]>([])
+  const [roundIndex, setRoundIndex] = useState(0)
   const [showRegisterPrompt, setShowRegisterPrompt] = useState(false)
   const [registerPromptDismissed, setRegisterPromptDismissed] = useState(false)
 
-  const [wordsCompletedInRound, setWordsCompletedInRound] = useState(0)
   const [roundXP, setRoundXP] = useState(0)
   const [showSummary, setShowSummary] = useState(false)
 
-  const effectiveRoundSize = Math.min(ROUND_SIZE, words.length)
-
-  function advance(played: string[]) {
-    const next = selectNextWord(words, completedWordIds, played)
-    setCurrentWord(next)
-    setSessionPlayed(next ? [...played, next.id] : played)
+  function startRound(played: string[]) {
+    const effectiveSize = Math.min(ROUND_SIZE, words.length)
+    const selected = selectRoundWords(words, completedWordIds, played, effectiveSize)
+    preloadImages(selected)
+    sessionPlayedRef.current = [...played, ...selected.map((w) => w.id)]
+    setRoundWords(selected)
+    setRoundIndex(0)
+    setRoundXP(0)
+    setShowSummary(false)
   }
 
   function handleWordComplete(earnedXP: number) {
-    const newCompleted = wordsCompletedInRound + 1
-    setWordsCompletedInRound(newCompleted)
+    const nextIndex = roundIndex + 1
     setRoundXP((prev) => prev + earnedXP)
 
-    if (newCompleted >= effectiveRoundSize) {
+    if (nextIndex >= roundWords.length) {
       setShowSummary(true)
       setShowRegisterPrompt(true)
     } else {
-      advance(sessionPlayed)
+      setRoundIndex(nextIndex)
     }
   }
 
   function handleNextRound() {
-    setWordsCompletedInRound(0)
-    setRoundXP(0)
-    setShowSummary(false)
-    advance(sessionPlayed)
+    startRound(sessionPlayedRef.current)
   }
 
   if (sessionWords !== words) {
     setSessionWords(words)
-    setWordsCompletedInRound(0)
-    setRoundXP(0)
-    setShowSummary(false)
+    const currentWord = roundWords[roundIndex]
     if (currentWord && words.some((word) => word.id === currentWord.id)) {
-      setSessionPlayed([currentWord.id])
+      startRound([currentWord.id])
     } else {
-      advance([])
+      startRound([])
     }
   }
 
   if (loading) {
     return <div className={styles.status}>{t.loadingWords}</div>
   }
+
+  const currentWord = roundWords[roundIndex]
 
   if (error || !currentWord) {
     return <div className={styles.status}>{t.errorLoadingWords}</div>
@@ -93,8 +93,8 @@ export function GamePage() {
     <>
       <GameRound
         word={currentWord}
-        wordsCompleted={wordsCompletedInRound}
-        roundSize={effectiveRoundSize}
+        wordsCompleted={roundIndex}
+        roundSize={roundWords.length}
         onRoundComplete={handleWordComplete}
       />
       {isAnonymous && showRegisterPrompt && !registerPromptDismissed && (
