@@ -1,7 +1,6 @@
 import Fastify, { type FastifyInstance } from 'fastify'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
-import fastifyStatic from '@fastify/static'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Word } from '@tavuilu/shared'
@@ -27,11 +26,6 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(fastifyCors, {
     origin: process.env.CORS_ORIGIN ?? 'http://localhost:5173',
     credentials: true,
-  })
-
-  await app.register(fastifyStatic, {
-    root: path.join(packageRoot, 'content', 'images'),
-    prefix: '/images/',
   })
 
   // Keep raw buffer for better-auth; parse JSON for all other routes.

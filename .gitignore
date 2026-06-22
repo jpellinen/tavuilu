@@ -24,6 +24,9 @@ apps/web/blob-report/
 .env.local
 .env.*.local
 
+# Content images (hosted on S3)
+apps/api/content/images/
+
 # OS
 .DS_Store
 

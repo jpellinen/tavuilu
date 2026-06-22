@@ -22,5 +22,45 @@
     "difficulty": 1,
     "imageRef": "dog",
     "tags": ["animals", "pets"]
+  },
+  {
+    "id": "talo",
+    "word": "talo",
+    "syllables": ["ta", "lo"],
+    "difficulty": 1,
+    "imageRef": "house",
+    "tags": ["buildings", "places"]
+  },
+  {
+    "id": "kissa",
+    "word": "kissa",
+    "syllables": ["kis", "sa"],
+    "difficulty": 1,
+    "imageRef": "cat",
+    "tags": ["animals", "pets"]
+  },
+  {
+    "id": "kukka",
+    "word": "kukka",
+    "syllables": ["kuk", "ka"],
+    "difficulty": 1,
+    "imageRef": "flower",
+    "tags": ["plants", "nature"]
+  },
+  {
+    "id": "pallo",
+    "word": "pallo",
+    "syllables": ["pal", "lo"],
+    "difficulty": 1,
+    "imageRef": "ball",
+    "tags": ["toys", "sports"]
+  },
+  {
+    "id": "kirja",
+    "word": "kirja",
+    "syllables": ["kir", "ja"],
+    "difficulty": 1,
+    "imageRef": "book",
+    "tags": ["learning", "school"]
   }
 ]
