@@ -15,39 +15,39 @@ All values defined as CSS custom properties in `apps/web/src/styles/tokens.css`.
 
 ### Primary (indigo-purple)
 
-| Token | Value | Use |
-|---|---|---|
-| `--color-primary` | `#5b6cf5` | Nav links, focus rings, icon fills |
-| `--color-primary-hover` | `#4857e0` | Hover/active states |
-| `--color-primary-light` | `#e8ebff` | Subtle chip backgrounds |
+| Token | Use |
+|---|---|
+| `--color-primary` | Nav links, focus rings, icon fills |
+| `--color-primary-hover` | Hover/active states |
+| `--color-primary-light` | Subtle chip backgrounds |
 
 ### Accent (warm orange)
 
-| Token | Value | Use |
-|---|---|---|
-| `--color-accent` | `#ff8c42` | Submit button, CTAs |
-| `--color-accent-hover` | `#e6762c` | CTA hover state |
-| `--color-accent-light` | `#fff0e6` | Accent tint for highlights |
+| Token | Use |
+|---|---|
+| `--color-accent` | Submit button, CTAs |
+| `--color-accent-hover` | CTA hover state |
+| `--color-accent-light` | Accent tint for highlights |
 
 ### Feedback
 
-| Token | Value | Use |
-|---|---|---|
-| `--color-success` | `#3bb87f` | Correct answer indicator |
-| `--color-success-light` | `#e0f7ee` | Success flash background |
-| `--color-warning` | `#ffd166` | Alerts, not yet used in Phase 2 |
-| `--color-error` | `#ef4444` | Error text, incorrect border |
-| `--color-error-light` | `#fee2e2` | Error flash on slots |
+| Token | Use |
+|---|---|
+| `--color-success` | Correct answer indicator |
+| `--color-success-light` | Success flash background |
+| `--color-warning` | Alerts, not yet used in Phase 2 |
+| `--color-error` | Error text, incorrect border |
+| `--color-error-light` | Error flash on slots |
 
 ### Neutrals
 
-| Token | Value | Use |
-|---|---|---|
-| `--color-bg` | `#f7f5ff` | Page background (warm off-white with slight purple tint) |
-| `--color-surface` | `#ffffff` | Cards, chips, modal surfaces |
-| `--color-text` | `#1c1640` | Body text (near-black with purple tint) |
-| `--color-text-muted` | `#6b6b8a` | Secondary labels, helper text |
-| `--color-border` | `#e2e0f0` | Subtle borders, dividers |
+| Token | Use |
+|---|---|
+| `--color-bg` | Page background (warm off-white with slight purple tint) |
+| `--color-surface` | Cards, chips, modal surfaces |
+| `--color-text` | Body text (near-black with purple tint) |
+| `--color-text-muted` | Secondary labels, helper text |
+| `--color-border` | Subtle borders, dividers |
 
 ---
 
@@ -61,16 +61,16 @@ Nunito is rounded and friendly — well-suited for children's interfaces and for
 --font-sans: 'Nunito', system-ui, -apple-system, sans-serif;
 ```
 
-| Token | rem | px | Use |
-|---|---|---|---|
-| `--font-size-xs` | 0.75 | 12 | Helper text, badges |
-| `--font-size-sm` | 0.875 | 14 | Secondary labels |
-| `--font-size-base` | 1.0 | 16 | Body, nav |
-| `--font-size-lg` | 1.125 | 18 | Card labels |
-| `--font-size-xl` | 1.375 | 22 | Section headings |
-| `--font-size-2xl` | 1.75 | 28 | Page headings |
-| `--font-size-3xl` | 2.25 | 36 | Word display in game |
-| `--font-size-4xl` | 3.0 | 48 | Hero/mascot display (Phase 4+) |
+| Token | Use |
+|---|---|
+| `--font-size-xs` | Helper text, badges |
+| `--font-size-sm` | Secondary labels |
+| `--font-size-base` | Body, nav |
+| `--font-size-lg` | Card labels |
+| `--font-size-xl` | Section headings |
+| `--font-size-2xl` | Page headings |
+| `--font-size-3xl` | Word display in game |
+| `--font-size-4xl` | Hero/mascot display (Phase 4+) |
 
 **Weight:** 700 (bold) for headings and syllable chips; 600 (semibold) for buttons; 400 (regular) for body.
 
@@ -80,19 +80,7 @@ Children's reading: the word displayed in the game uses `--font-size-3xl` at bol
 
 ## Spacing
 
-4px base scale:
-
-```
---space-1: 0.25rem   (4px)
---space-2: 0.5rem    (8px)
---space-3: 0.75rem   (12px)
---space-4: 1rem      (16px)
---space-6: 1.5rem    (24px)
---space-8: 2rem      (32px)
---space-10: 2.5rem   (40px)
---space-12: 3rem     (48px)
---space-16: 4rem     (64px)
-```
+4px base scale — `--space-1` through `--space-16`. See `tokens.css` for current values.
 
 Game layout uses generous spacing — children need clear visual separation between the word, slots, and chip area.
 
@@ -100,25 +88,25 @@ Game layout uses generous spacing — children need clear visual separation betw
 
 ## Border Radii
 
-```
---radius-sm: 8px     ← small UI details
---radius-md: 16px    ← cards, chips
---radius-lg: 24px    ← panels, modals
---radius-xl: 32px    ← image frame
---radius-full: 9999px ← pill shapes (submit button on mobile)
-```
+| Token | Use |
+|---|---|
+| `--radius-sm` | Small UI details |
+| `--radius-md` | Cards, chips |
+| `--radius-lg` | Panels, modals |
+| `--radius-xl` | Image frame |
+| `--radius-full` | Pill shapes (submit button on mobile) |
 
-Syllable chips use `--radius-md` (16px) for a friendly pill feel without being a full oval.
+Syllable chips use `--radius-md` for a friendly pill feel without being a full oval.
 
 ---
 
 ## Shadows
 
-```
---shadow-sm   ← chip at rest: subtle lift
---shadow-md   ← card: medium depth
---shadow-lg   ← chip while dragging: emphasised elevation
-```
+| Token | Use |
+|---|---|
+| `--shadow-sm` | Chip at rest: subtle lift |
+| `--shadow-md` | Card: medium depth |
+| `--shadow-lg` | Chip while dragging: emphasised elevation |
 
 No text shadows. Shadows use the dark text color with low opacity so they read correctly on both light and tinted backgrounds.
 
@@ -126,11 +114,11 @@ No text shadows. Shadows use the dark text color with low opacity so they read c
 
 ## Transitions
 
-```
---transition-fast: 120ms ease   ← button hover, slot highlight
---transition-base: 200ms ease   ← state changes
---transition-slow: 350ms ease   ← page transitions (not yet in Phase 2)
-```
+| Token | Use |
+|---|---|
+| `--transition-fast` | Button hover, slot highlight |
+| `--transition-base` | State changes |
+| `--transition-slow` | Page transitions (not yet in Phase 2) |
 
 Use CSS transitions for hover/focus states. Use `motion` (Framer Motion) for game animations (confetti, shake, chip snap).
 
@@ -140,32 +128,32 @@ Use CSS transitions for hover/focus states. Use `motion` (Framer Motion) for gam
 
 ### Syllable Chip (at rest)
 - Background: `--color-surface`
-- Border: 2px solid `--color-primary`
+- Border: solid `--color-primary`
 - Text: `--color-primary`, `--font-size-xl`, weight 700
 - Border radius: `--radius-md`
 - Shadow: `--shadow-sm`
 - Padding: `--space-3` vertical, `--space-5` horizontal
-- Min width: 56px; min height: 48px
+- Sized to be comfortably tappable for small hands
 
 ### Syllable Chip (dragging)
-- Scale: 1.05×
+- Slight scale-up
 - Shadow: `--shadow-lg`
-- Opacity: 0.9
+- Reduced opacity
 - Cursor: grabbing
 
 ### Drop Slot (empty)
 - Background: `--color-bg`
-- Border: 2px dashed `--color-border`
+- Border: dashed `--color-border`
 - Border radius: `--radius-md`
-- Min width: 64px; height: 56px
+- Sized slightly larger than a chip so it's a clear drop target
 - Transition: border-color `--transition-fast`
 
 ### Drop Slot (active / chip hovering over)
-- Border: 2px solid `--color-primary`
+- Border: solid `--color-primary`
 - Background: `--color-primary-light`
 
 ### Drop Slot (filled)
-- Border: 2px solid `--color-primary`
+- Border: solid `--color-primary`
 - Background: `--color-surface`
 - Chip rendered inside slot
 
@@ -185,10 +173,10 @@ Use CSS transitions for hover/focus states. Use `motion` (Framer Motion) for gam
 
 ## Animation Principles
 
-- **Spring physics** for chip movement — snappy, never linear. Stiffness 400, damping 30.
-- **Confetti** on success: 20–30 colored circles (using primary, accent, success, warning colors) burst outward from the word area and fall off-screen. Duration ~1.2 s.
-- **Shake** on error: the slot row oscillates horizontally and slots flash red. Duration ~400 ms. No bounce after.
-- **Fade** for word transitions: current word content fades out, new word fades in (200 ms each, 100 ms gap).
+- **Spring physics** for chip movement — snappy, never linear.
+- **Confetti** on success: colored circles (using primary, accent, success, warning colors) burst outward from the word area and fall off-screen. Should feel celebratory but brief.
+- **Shake** on error: the slot row oscillates horizontally and slots flash red. Quick and clear, no bounce after.
+- **Fade** for word transitions: current word content fades out, new word fades in.
 - Avoid flashing more than 3 times per second (WCAG 2.3.1 photosensitivity).
 
 ---
@@ -197,11 +185,11 @@ Use CSS transitions for hover/focus states. Use `motion` (Framer Motion) for gam
 
 Not using a utility library — breakpoints are defined inline in CSS Modules with `@media`.
 
-| Name | Min-width | Target device |
-|---|---|---|
-| `sm` | 390px | Large phone |
-| `md` | 600px | Small tablet |
-| `lg` | 768px | Tablet (primary) |
-| `xl` | 1024px | Large tablet / laptop |
+| Name | Target device |
+|---|---|
+| `sm` | Large phone |
+| `md` | Small tablet |
+| `lg` | Tablet (primary) |
+| `xl` | Large tablet / laptop |
 
-The game layout is designed **mobile-first**: base styles target phones, then `@media (min-width: 768px)` adapts for tablets.
+Breakpoint values are defined in `tokens.css`. The game layout is designed **mobile-first**: base styles target phones, then wider breakpoints adapt for tablets.
