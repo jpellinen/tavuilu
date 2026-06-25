@@ -25,7 +25,7 @@
   left: calc(var(--dot-size) / 2);
   height: 4px;
   transform: translateY(-50%);
-  background: var(--color-primary-muted);
+  background: var(--color-primary);
   border-radius: 2px;
   pointer-events: none;
   transition: width 0.3s ease;
@@ -49,8 +49,8 @@
 }
 
 .dotDone {
-  background-color: var(--color-primary-muted);
-  border-color: var(--color-primary-muted);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .dotActive {
