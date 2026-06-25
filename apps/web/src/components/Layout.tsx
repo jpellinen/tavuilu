@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet, useLocation } from 'react-router'
+import { Link, Outlet, useLocation } from 'react-router'
 import { useLocale } from '../hooks/useLocale'
 import { useProgressSync } from '../hooks/useProgressSync'
 import { useGameHeaderStore } from '../stores/gameHeaderStore'
@@ -32,6 +32,7 @@ export function Layout() {
   const t = useLocale()
   useProgressSync()
   const location = useLocation()
+  const isHome = location.pathname === '/'
   const isGame = location.pathname === '/game'
   const { active, wordsCompleted, roundSize } = useGameHeaderStore()
 
@@ -50,21 +51,7 @@ export function Layout() {
             )}
           </>
         ) : (
-          <nav className={styles.nav}>
-            <NavLink
-              to="/"
-              end
-              className={({ isActive }) => (isActive ? styles.linkActive : styles.link)}
-            >
-              {t.home}
-            </NavLink>
-            <NavLink
-              to="/settings"
-              className={({ isActive }) => (isActive ? styles.linkActive : styles.link)}
-            >
-              {t.settings}
-            </NavLink>
-          </nav>
+          !isHome && <HomeButton label={t.home} />
         )}
       </header>
       <main className={styles.main}>

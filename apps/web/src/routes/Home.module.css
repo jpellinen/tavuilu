@@ -36,3 +36,20 @@
     font-size: var(--font-size-xl);
   }
 }
+
+.settingsLink {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.settingsLink:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}

@@ -12,6 +12,9 @@ export function Home() {
       <Link to="/game">
         <Button size="lg">{t.startGame}</Button>
       </Link>
+      <Link to="/settings" className={styles.settingsLink}>
+        {t.settings}
+      </Link>
     </div>
   )
 }

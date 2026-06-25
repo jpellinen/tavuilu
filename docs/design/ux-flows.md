@@ -4,7 +4,7 @@
 
 | Screen | Route | Description |
 |---|---|---|
-| Home | `/` | Entry point. Hero tagline, "Aloita peli" CTA, nav |
+| Home | `/` | Entry point. Hero tagline, "Aloita peli" CTA, settings link |
 | Game | `/game` | Syllable drag-and-drop game |
 | Settings | `/settings` | Language and difficulty selector |
 
@@ -12,15 +12,13 @@
 
 ## Navigation
 
-A persistent nav bar appears at the top on all screens.
+The header bar is contextual per screen:
 
-```
-[ Tavuilu ]     [ Etusivu ]  [ Peli ]  [ Asetukset ]
-```
+- **Home (`/`):** No header buttons — the page itself contains the settings link below the start button.
+- **Game (`/game`):** Home button (house icon) + progress dots.
+- **Other pages** (settings, auth): Home button only.
 
-On mobile (≤600px), the nav collapses to icon-only links with an accessible label. The logo is a text wordmark in Phase 2 (mascot illustration in Phase 4).
-
-The currently active route is highlighted (via `<NavLink>` active class).
+On the game screen, the home button navigates back to `/`.
 
 ---
 
@@ -33,6 +31,8 @@ The currently active route is highlighted (via `<NavLink>` active class).
 │  Opitaan lukemaan yhdessä.       │  ← tagline (locale key: "tagline")
 │                                  │
 │  [ Aloita peli → ]               │  ← navigates to /game
+│                                  │
+│  Asetukset                       │  ← link to /settings (centered)
 │                                  │
 │  Level 3 · 245 XP                │  ← read from progressStore (if xp > 0)
 └──────────────────────────────────┘
@@ -172,7 +172,7 @@ The primary input on a children's tablet is touch. Key considerations:
 
 - All interactive elements reachable by keyboard (Tab + Enter/Space).
 - `@dnd-kit` provides keyboard drag-and-drop: Space to pick up, arrow keys to move, Space/Enter to drop.
-- Nav links use `<NavLink>` with aria-current="page".
+- Home button uses `<Link>` with an accessible `aria-label`.
 - Word image has meaningful `alt` text: the word itself (e.g., `alt="kala"`).
 - Drop slots labeled with aria: `aria-label="Paikka 1"`, `aria-label="Paikka 2"`, etc.
 - Confetti is `aria-hidden` — it's decorative.
