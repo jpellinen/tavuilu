@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { Word } from '@tavuilu/shared'
 import { useSettingsStore } from '../../stores/settingsStore'
 import { useProgressStore } from '../../stores/progressStore'
+import { useGameHeaderStore } from '../../stores/gameHeaderStore'
 import { useWords } from '../../hooks/useWords'
 import { useLocale } from '../../hooks/useLocale'
 import { useAuth } from '../auth/useAuth'
@@ -19,8 +20,14 @@ export function GamePage() {
   const language = useSettingsStore((s) => s.language)
   const difficulty = useSettingsStore((s) => s.difficulty)
   const completedWordIds = useProgressStore((s) => s.completedWordIds)
+  const { setActive, setProgress } = useGameHeaderStore()
   const { isAnonymous } = useAuth()
   const { words, loading, error } = useWords(language, difficulty)
+
+  useEffect(() => {
+    setActive(true)
+    return () => setActive(false)
+  }, [setActive])
   const [sessionWords, setSessionWords] = useState(words)
   const [sessionPlayed, setSessionPlayed] = useState<string[]>([])
   const [roundWords, setRoundWords] = useState<Word[]>([])
@@ -30,6 +37,10 @@ export function GamePage() {
 
   const [roundXP, setRoundXP] = useState(0)
   const [showSummary, setShowSummary] = useState(false)
+
+  useEffect(() => {
+    setProgress(roundIndex, roundWords.length)
+  }, [roundIndex, roundWords.length, setProgress])
 
   function startRound(played: string[]) {
     const effectiveSize = Math.min(ROUND_SIZE, words.length)
@@ -91,12 +102,7 @@ export function GamePage() {
 
   return (
     <>
-      <GameRound
-        word={currentWord}
-        wordsCompleted={roundIndex}
-        roundSize={roundWords.length}
-        onRoundComplete={handleWordComplete}
-      />
+      <GameRound word={currentWord} onRoundComplete={handleWordComplete} />
       {isAnonymous && showRegisterPrompt && !registerPromptDismissed && (
         <RegisterPrompt onDismiss={() => setRegisterPromptDismissed(true)} />
       )}

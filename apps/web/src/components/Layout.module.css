@@ -5,13 +5,15 @@
 }
 
 .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
 }
 
 @media (min-width: 768px) {
@@ -20,11 +22,25 @@
   }
 }
 
-.logo {
-  font-size: var(--font-size-2xl);
-  font-weight: 800;
+.homeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
   color: var(--color-primary);
-  letter-spacing: -0.02em;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  transition:
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.homeButton:hover {
+  background: var(--color-primary-light);
+  box-shadow: var(--shadow-md);
 }
 
 .nav {
